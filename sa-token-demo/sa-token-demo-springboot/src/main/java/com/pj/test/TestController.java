@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pj.satoken.at.StpUserUtil;
 import com.pj.util.AjaxJson;
 import com.pj.util.Ttime;
 
@@ -30,7 +29,6 @@ import cn.dev33.satoken.stp.StpUtil;
 @RequestMapping("/test/")
 public class TestController {
 
-	
 	// 测试登录接口， 浏览器访问： http://localhost:8081/test/login
 	@RequestMapping("login")
 	public AjaxJson login(@RequestParam(defaultValue="10001") String id) {
@@ -242,7 +240,6 @@ public class TestController {
 	@RequestMapping("test")
 	public AjaxJson test() {
 		System.out.println("进来了");
-		StpUserUtil.login(10001);
 		return AjaxJson.getSuccess();
 	}
 	

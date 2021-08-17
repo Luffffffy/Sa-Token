@@ -1,5 +1,6 @@
 package cn.dev33.satoken.config;
 
+import java.io.Serializable;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -13,7 +14,9 @@ import cn.dev33.satoken.util.SaResult;
  * @author kong
  *
  */
-public class SaSsoConfig {
+public class SaSsoConfig implements Serializable {
+
+	private static final long serialVersionUID = -6541180061782004705L;
 
 	/**
 	 * Ticket有效期 (单位: 秒)
@@ -49,6 +52,12 @@ public class SaSsoConfig {
 	 * SSO-Client端 当前Client端的单点注销回调URL （为空时自动获取） 
 	 */
 	public String ssoLogoutCall;
+
+	/**
+	 * SSO-Server端 账号资料查询地址 
+	 */
+	public String userinfoUrl;
+
 
 
 	/**
@@ -124,6 +133,7 @@ public class SaSsoConfig {
 
 	/**
 	 * @param checkTicketUrl SSO-Server端Ticket校验地址
+	 * @return 对象自身
 	 */
 	public SaSsoConfig setCheckTicketUrl(String checkTicketUrl) {
 		this.checkTicketUrl = checkTicketUrl;
@@ -162,11 +172,27 @@ public class SaSsoConfig {
 		return this;
 	}
 
+	/**
+	 * @return SSO-Server端 账号资料查询地址 
+	 */
+	public String getUserinfoUrl() {
+		return userinfoUrl;
+	}
+
+	/**
+	 * @param userinfoUrl SSO-Server端 账号资料查询地址 
+	 * @return 对象自身 
+	 */
+	public SaSsoConfig setUserinfoUrl(String userinfoUrl) {
+		this.userinfoUrl = userinfoUrl;
+		return this;
+	}
+	
 	@Override
 	public String toString() {
 		return "SaSsoConfig [ticketTimeout=" + ticketTimeout + ", allowUrl=" + allowUrl + ", secretkey=" + secretkey
 				+ ", authUrl=" + authUrl + ", checkTicketUrl=" + checkTicketUrl + ", sloUrl=" + sloUrl
-				+ ", ssoLogoutCall=" + ssoLogoutCall + ", isHttp=" + isHttp + ", isSlo=" + isSlo + "]";
+				+ ", ssoLogoutCall=" + ssoLogoutCall + ", userinfoUrl=" + userinfoUrl + ", isHttp=" + isHttp + ", isSlo=" + isSlo + "]";
 	}
 	
 
@@ -229,7 +255,6 @@ public class SaSsoConfig {
 	// -------------------- SaSsoHandle 所有回调函数 -------------------- 
 	
 
-
 	/**
 	 * SSO-Server端：未登录时返回的View 
 	 */
@@ -241,12 +266,9 @@ public class SaSsoConfig {
 	public BiFunction<String, String, Object> doLoginHandle = (name, pwd) -> SaResult.error();
 
 	/**
-	 * SSO-Client端：Ticket无效时返回的View 
+	 * SSO-Client端：自定义校验Ticket返回值的处理逻辑 （每次从认证中心获取校验Ticket的结果后调用）
 	 */
-	public Function<String, Object> ticketInvalidView = (ticket) -> {
-		// 此处向客户端提示ticket无效即可，不要重定向到SSO认证中心，否则容易引起无限重定向 
-		return "ticket无效: " + ticket;
-	};
+	public BiFunction<Object, String, Object> ticketResultHandle = null;
 
 	/**
 	 * SSO-Client端：发送Http请求的处理函数 
@@ -273,11 +295,11 @@ public class SaSsoConfig {
 	}
 
 	/**
-	 * @param ticketInvalidView SSO-Client端：Ticket无效时返回的View 
+	 * @param ticketResultHandle SSO-Client端：自定义校验Ticket返回值的处理逻辑 （每次从认证中心获取校验Ticket的结果后调用）
 	 * @return 对象自身
 	 */
-	public SaSsoConfig setTicketInvalidView(Function<String, Object> ticketInvalidView) {
-		this.ticketInvalidView = ticketInvalidView;
+	public SaSsoConfig setTicketResultHandle(BiFunction<Object, String, Object> ticketResultHandle) {
+		this.ticketResultHandle = ticketResultHandle;
 		return this;
 	}
 	

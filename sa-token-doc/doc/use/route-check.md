@@ -1,4 +1,4 @@
-# 路由拦截式鉴权
+# 路由拦截鉴权
 --- 
 
 假设我们有如下需求：
@@ -14,10 +14,10 @@
 ``` java 
 @Configuration
 public class SaTokenConfigure implements WebMvcConfigurer {
-	// 注册Sa-Token的登录拦截器
+	// 注册拦截器
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		// 注册登录拦截器，并排除登录接口或其他可匿名访问的接口地址 (与注解拦截器无关)
+		// 注册Sa-Token的路由拦截器，并排除登录接口或其他可匿名访问的接口地址 (与注解拦截器无关)
 		registry.addInterceptor(new SaRouteInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/doLogin"); 
 	}
 }
@@ -87,9 +87,8 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 				}
 			});
 			
-			// 提前退出 
-			
-			
+			// 提前退出 (执行SaRouter.stop()后会直接退出匹配链)
+			SaRouter.match("/test/back", () -> SaRouter.stop());
 			
 			// 在多账号模式下，可以使用任意StpUtil进行校验
 			SaRouter.match("/user/**", () -> StpUserUtil.checkLogin());

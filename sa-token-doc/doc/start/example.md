@@ -9,7 +9,7 @@
 在IDE中新建一个SpringBoot项目，例如：`sa-token-demo-springboot`（不会的同学请自行百度或者参考github示例）
 
 
-### 2、设置依赖
+### 2、添加依赖
 在 `pom.xml` 中添加依赖：
 
 ``` xml 
@@ -39,7 +39,7 @@ sa-token:
 	# token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
 	activity-timeout: -1
 	# 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录) 
-	is-concurrent: false
+	is-concurrent: true
 	# 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token) 
 	is-share: false
 	# token风格

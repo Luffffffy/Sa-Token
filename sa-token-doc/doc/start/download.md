@@ -1,4 +1,4 @@
-# 集成
+# 集成 Sa-Token 
 
 ------
 
@@ -19,7 +19,7 @@
 ```
 
 <!-- tab:WebFlux环境 （Reactor）  -->
-注：如果你使用的框架基于 Reactor 模型构建（Netty、WebFlux、Soul、SC Gateway等），请引入此包
+注：如果你使用的框架基于 Reactor 模型构建（Netty、WebFlux、ShenYu、SC Gateway等），请引入此包
 ``` xml
 <!-- Sa-Token 权限认证（Reactor响应式集成）, 在线文档：http://sa-token.dev33.cn/ -->
 <dependency>
@@ -73,7 +73,7 @@ implementation 'cn.dev33:sa-token-core:${sa.top.version}'
 ```
 <!-- tabs:end -->
 
-注：JDK版本：`v1.8+`
+注：JDK版本：`v1.8+`，SpringBoot：`建议2.0以上`
 
 
 ## 获取源码
@@ -98,7 +98,7 @@ implementation 'cn.dev33:sa-token-core:${sa.top.version}'
 		├── sa-token-temp-jwt                     // [插件] Sa-Token 整合 jwt 临时令牌鉴权 
 		├── sa-token-quick-login                  // [插件] Sa-Token 快速注入登录页插件 
 		├── sa-token-alone-redis                  // [插件] Sa-Token 独立Redis插件，实现[权限缓存与业务缓存分离]
-		├── sa-token-oauth2                       // [插件] Sa-Token 实现 OAuth2.0 模块(内测暂未发布)
+		├── sa-token-oauth2                       // [插件] Sa-Token 实现 OAuth2.0 模块 
 	├── sa-token-demo                         // [示例] Sa-Token 示例合集
 		├── sa-token-demo-springboot              // [示例] Sa-Token 整合 SpringBoot 
 		├── sa-token-demo-webflux                 // [示例] Sa-Token 整合 WebFlux 

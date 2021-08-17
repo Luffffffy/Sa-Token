@@ -1,9 +1,15 @@
 package cn.dev33.satoken.servlet.model;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.context.model.SaRequest;
+import cn.dev33.satoken.exception.SaTokenException;
 
 /**
  * Request for Servlet 
@@ -37,7 +43,7 @@ public class SaRequestForServlet implements SaRequest {
 	 * 在 [请求体] 里获取一个值 
 	 */
 	@Override
-	public String getParameter(String name) {
+	public String getParam(String name) {
 		return request.getParameter(name);
 	}
 
@@ -89,4 +95,18 @@ public class SaRequestForServlet implements SaRequest {
 		return request.getMethod();
 	}
 
+	/**
+	 * 转发请求 
+	 */
+	@Override
+	public Object forward(String path) {
+		try {
+			HttpServletResponse response = (HttpServletResponse)SaManager.getSaTokenContext().getResponse().getSource();
+			request.getRequestDispatcher(path).forward(request, response);
+			return null;
+		} catch (ServletException | IOException e) {
+			throw new SaTokenException(e);
+		}
+	}
+	
 }

@@ -1,6 +1,7 @@
 package com.pj.sso;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +19,13 @@ import cn.dev33.satoken.util.SaResult;
 @RestController
 public class SsoServerController {
 
-	// SSO-Server端：处理所有SSO相关请求 
+	/*
+	 * SSO-Server端：处理所有SSO相关请求 
+	 * 		http://{host}:{port}/sso/auth			-- 单点登录授权地址，接受参数：redirect=授权重定向地址 
+	 * 		http://{host}:{port}/sso/doLogin		-- 账号密码登录接口，接受参数：name、pwd 
+	 * 		http://{host}:{port}/sso/checkTicket	-- Ticket校验接口（isHttp=true时打开），接受参数：ticket=ticket码、ssoLogoutCall=单点注销回调地址 [可选] 
+	 * 		http://{host}:{port}/sso/logout			-- 单点注销地址（isSlo=true时打开），接受参数：loginId=账号id、secretkey=接口调用秘钥 
+	 */
 	@RequestMapping("/sso/*")
 	public Object ssoRequest() {
 		return SaSsoHandle.serverRequest();
@@ -42,6 +49,13 @@ public class SsoServerController {
 				return SaResult.error("登录失败！");
 			})
 			;
+	}
+
+	// 全局异常拦截 
+	@ExceptionHandler
+	public SaResult handlerException(Exception e) {
+		e.printStackTrace(); 
+		return SaResult.error(e.getMessage());
 	}
 	
 }
