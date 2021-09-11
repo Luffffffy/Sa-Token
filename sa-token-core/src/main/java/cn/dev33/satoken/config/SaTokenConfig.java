@@ -74,7 +74,15 @@ public class SaTokenConfig implements Serializable {
 	 * Id-Token的有效期 (单位: 秒)
 	 */
 	private long idTokenTimeout = 60 * 60 * 24;
-	
+
+	/**
+	 * Http Basic 认证的账号和密码 
+	 */
+	private String basic = "";
+
+	/** 配置当前项目的网络访问地址 */
+	private String currDomain;
+
 
 	/**
 	 * SSO单点登录配置对象 
@@ -373,6 +381,38 @@ public class SaTokenConfig implements Serializable {
 		this.idTokenTimeout = idTokenTimeout;
 		return this;
 	}
+
+	/**
+	 * @return Http Basic 认证的账号和密码 
+	 */
+	public String getBasic() {
+		return basic;
+	}
+
+	/**
+	 * @param basic Http Basic 认证的账号和密码 
+	 * @return 对象自身
+	 */
+	public SaTokenConfig setBasic(String basic) {
+		this.basic = basic;
+		return this;
+	}
+
+	/**
+	 * @return 配置当前项目的网络访问地址
+	 */
+	public String getCurrDomain() {
+		return currDomain;
+	}
+
+	/**
+	 * @param currDomain 配置当前项目的网络访问地址
+	 * @return 对象自身
+	 */
+	public SaTokenConfig setCurrDomain(String currDomain) {
+		this.currDomain = currDomain;
+		return this;
+	}
 	
 	/**
 	 * @return SSO单点登录配置对象 
@@ -388,6 +428,7 @@ public class SaTokenConfig implements Serializable {
 		this.sso = sso;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "SaTokenConfig [tokenName=" + tokenName + ", timeout=" + timeout + ", activityTimeout=" + activityTimeout
@@ -396,12 +437,9 @@ public class SaTokenConfig implements Serializable {
 				+ ", dataRefreshPeriod=" + dataRefreshPeriod + ", tokenSessionCheckLogin=" + tokenSessionCheckLogin
 				+ ", autoRenew=" + autoRenew + ", cookieDomain=" + cookieDomain + ", tokenPrefix=" + tokenPrefix
 				+ ", isPrint=" + isPrint + ", isLog=" + isLog + ", jwtSecretKey=" + jwtSecretKey + ", idTokenTimeout="
-				+ idTokenTimeout + ", sso=" + sso + "]";
+				+ idTokenTimeout + ", basic=" + basic + ", currDomain=" + currDomain + ", sso=" + sso + "]";
 	}
-	
 
-	
-	
 	/**
 	 * <h1> 本函数设计已过时，未来版本可能移除此函数，请及时更换为 setIsConcurrent() ，使用方式保持不变 </h1>
 	 * @param allowConcurrentLogin see note

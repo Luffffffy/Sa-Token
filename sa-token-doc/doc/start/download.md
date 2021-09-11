@@ -1,8 +1,8 @@
-# 集成 Sa-Token 
+# 引入 Sa-Token 依赖
 
 ------
 
-## Maven依赖
+## Maven依赖 
 在项目中直接通过 `pom.xml` 引入 Sa-Token 的依赖即可（四选一）：
 
 <!------------------------------ tabs:start ------------------------------>
@@ -106,9 +106,13 @@ implementation 'cn.dev33:sa-token-core:${sa.top.version}'
 		├── sa-token-demo-solon                   // [示例] Sa-Token 集成 Solon 
 		├── sa-token-demo-quick-login             // [示例] Sa-Token 集成 quick-login 模块 
 		├── sa-token-demo-alone-redis             // [示例] Sa-Token 集成 alone-redis 模块
-		├── sa-token-demo-sso1                    // [示例] Sa-Token 集成 SSO单点登录-模式一
+		├── sa-token-demo-sso1                    // [示例] Sa-Token 集成 SSO单点登录-模式一简单测试
+		├── sa-token-demo-sso1-server             // [示例] Sa-Token 集成 SSO单点登录-模式一 认证中心 
+		├── sa-token-demo-sso1-client             // [示例] Sa-Token 集成 SSO单点登录-模式一 应用端 
 		├── sa-token-demo-sso2-server             // [示例] Sa-Token 集成 SSO单点登录-模式二 认证中心
-		├── sa-token-demo-sso2-client             // [示例] Sa-Token 集成 SSO单点登录-模式二 应用端
+		├── sa-token-demo-sso2-client-h5          // [示例] Sa-Token 集成 SSO单点登录-模式二 应用端
+		├── sa-token-demo-sso2-server             // [示例] Sa-Token 集成 SSO单点登录-模式二 认证中心 (前后端分离)
+		├── sa-token-demo-sso2-client-h5          // [示例] Sa-Token 集成 SSO单点登录-模式二 应用端 (前后端分离)
 		├── sa-token-demo-sso3-server             // [示例] Sa-Token 集成 SSO单点登录-模式三 认证中心
 		├── sa-token-demo-sso3-client             // [示例] Sa-Token 集成 SSO单点登录-模式三 应用端
 		├── sa-token-demo-oauth2-server           // [示例] Sa-Token 集成 OAuth2.0 (服务端)

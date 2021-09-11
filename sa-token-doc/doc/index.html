@@ -22,6 +22,7 @@
 		<nav>
 			<select onchange="location.href=this.value">
 				<option value="http://sa-token.dev33.cn/doc/index.html">最新版</option>
+				<option value="http://sa-token.dev33.cn/v/v1.25.0/doc/index.html">v1.25.0</option>
 				<option value="http://sa-token.dev33.cn/v/v1.24.0/doc/index.html">v1.24.0</option>
 				<option value="http://sa-token.dev33.cn/v/v1.23.0/doc/index.html">v1.23.0</option>
 				<option value="http://sa-token.dev33.cn/v/v1.22.0/doc/index.html">v1.22.0</option>
@@ -60,7 +61,7 @@
 		</div>
 		
 		<script>
-			var saTokenTopVersion = '1.25.0';	// Sa-Token最新版本 
+			var saTokenTopVersion = '1.26.0';	// Sa-Token最新版本 
 			var name = '<img style="width: 60px; height: 60px; vertical-align: middle;" src="logo.png" alt="logo" /> ';
 			name += '<b style="font-size: 28px; vertical-align: middle;">Sa-Token</b> <sub>v' + saTokenTopVersion + '</sub>'
 			window.$docsify = {
@@ -71,7 +72,7 @@
 				// basePath: '/sa-token-doc/',		// 设置文件加载的父路径, 这在一些带项目名部署的文件中非常有效
 				auto2top: true, // 是否在切换页面后回到顶部 
 				// coverpage: true, // 开启封面 
-				subMaxLevel: 3, // 标题解析层级, 写几就在目录树中解析到几级标题 ,一般写2吧也就 
+				subMaxLevel: 4, // 标题解析层级, 写几就在目录树中解析到几级标题 ,一般写2吧也就 
 				loadSidebar: true, // 加载自定义侧边栏 , 目录定制在: _sidebar.md 文件 (需要创建 .nojekyll 的空文件，阻止 GitHub Pages 忽略命名是下划线开头的文件)
 				copyCode: { // 复制插件 
 					buttonText: '复制到剪贴板',
@@ -143,7 +144,9 @@
 		<script src="https://unpkg.zhimg.com/docsify@4.9.4/lib/docsify.min.js"></script>
 		<script src="https://unpkg.zhimg.com/docsify-copy-code@2.1.0/dist/docsify-copy-code.min.js"></script>
 		<script src="https://unpkg.zhimg.com/prismjs@1.20.0/components/prism-java.min.js"></script>
+		<!-- 搜索框 -->
 		<script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+		<!-- 多 tab 切换 -->
 		<script src="https://unpkg.zhimg.com/docsify-tabs@1.4.4"></script>
 		<!-- img点击放大 -->
 		<script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>

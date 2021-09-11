@@ -1,8 +1,8 @@
 <!-- 这是目录树文件 -->
 
 - **开始**
-	- [介绍](/README)
-	- [集成](/start/download)
+	- [介绍](/)
+	- [引入](/start/download)
 	- [在SpringBoot环境集成](/start/example) 	
 	- [在WebFlux环境集成](/start/webflux-example) 	
 
@@ -24,6 +24,7 @@
 	- [模拟他人 & 身份切换](/up/mock-person) 
 	- [同端互斥登录](/up/mutex-login) 
 	- [二级认证](/up/safe-auth) 
+	- [Http Basic 认证](/up/basic-auth) 
 	- [密码加密](/up/password-secure) 
 	- [会话治理](/up/search-session) 
 	- [全局侦听器](/up/global-listener) 
@@ -36,7 +37,12 @@
 	- [SSO模式一 共享Cookie同步会话](/sso/sso-type1)
 	- [SSO模式二 URL重定向传播会话](/sso/sso-type2)
 	- [SSO模式三 Http请求获取会话](/sso/sso-type3)
-	- [SSO整合-常见问题总结](/sso/sso-cd)
+	- [SSO整合：配置域名校验](/sso/sso-check-domain)
+	- [SSO整合：定制化登录页面](/sso/sso-custom-login)
+	- [SSO整合：自定义API路由](/sso/sso-custom-api)
+	- [SSO整合：前后端分离下的整合方案](/sso/sso-h5)
+	- [SSO整合：常见问题总结](/sso/sso-questions)
+	- [Sa-Sso-Pro：单点登录商业版](/sso/sso-pro)
 
 - **OAuth2.0**
 	- [OAuth2.0简述](/oauth2/readme)
@@ -70,6 +76,9 @@
 	- [Token有效期详解](/fun/token-timeout)
 	- [Session模型详解](/fun/session-model)
 	- [TokenInfo参数详解](/fun/token-info)
+	- [解决反向代理 uri 丢失的问题](/fun/curr-domain)
+	- [参考：把权限放在缓存里](/fun/jur-cache)
+	- [解决跨域问题](/fun/cors-filter)
 	- [框架源码所有技术栈](/fun/tech-stack)
 	- [为Sa-Token贡献代码](/fun/git-pr)
 	- [Sa-Token框架掌握度--在线考试](/fun/sa-token-test)

@@ -20,7 +20,7 @@ public class SaResponseForReactor implements SaResponse {
 	/**
 	 * 底层Response对象
 	 */
-	ServerHttpResponse response;
+	protected ServerHttpResponse response;
 	
 	/**
 	 * 实例化
@@ -74,6 +74,15 @@ public class SaResponseForReactor implements SaResponse {
 		response.addCookie(builder.build());
 	}
 
+	/**
+	 * 设置响应状态码 
+	 */
+	@Override
+	public SaResponse setStatus(int sc) {
+		response.setStatusCode(HttpStatus.valueOf(sc));
+		return this;
+	}
+	
 	/**
 	 * 在响应头里写入一个值 
 	 */
