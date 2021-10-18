@@ -1,7 +1,7 @@
 <p align="center">
 	<img alt="logo" src="https://gitee.com/dromara/sa-token/raw/master/sa-token-doc/doc/logo.png" width="150" height="150">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Sa-Token v1.26.0</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Sa-Token v1.27.0</h1>
 <h5 align="center">一个轻量级 Java 权限认证框架，让鉴权变得简单、优雅！</h5>
 <p align="center">
 	<a href="https://gitee.com/dromara/sa-token/stargazers"><img src="https://gitee.com/dromara/sa-token/badge/star.svg"></a>
@@ -58,8 +58,8 @@ public String insert(SysUser user) {
 
 将某个账号踢下线（待到对方再次访问系统时会抛出`NotLoginException`异常）
 ``` java
-// 使账号id为 10001 的会话强制注销登录
-StpUtil.logoutByLoginId(10001);
+// 将账号id为 10001 的会话踢下线 
+StpUtil.kickout(10001);
 ```
 
 在 Sa-Token 中，绝大多数功能都可以 **一行代码** 完成：
@@ -68,14 +68,14 @@ StpUtil.login(10001);                     // 标记当前会话登录的账号id
 StpUtil.getLoginId();                     // 获取当前会话登录的账号id
 StpUtil.isLogin();                        // 获取当前会话是否已经登录, 返回true或false
 StpUtil.logout();                         // 当前会话注销登录
-StpUtil.logoutByLoginId(10001);           // 让账号为10001的会话注销登录（踢人下线）
+StpUtil.kickout(10001);                   // 将账号为10001的会话踢下线
 StpUtil.hasRole("super-admin");           // 查询当前账号是否含有指定角色标识, 返回true或false
 StpUtil.hasPermission("user:add");        // 查询当前账号是否含有指定权限, 返回true或false
 StpUtil.getSession();                     // 获取当前账号id的Session
 StpUtil.getSessionByLoginId(10001);       // 获取账号id为10001的Session
 StpUtil.getTokenValueByLoginId(10001);    // 获取账号id为10001的token令牌值
 StpUtil.login(10001, "PC");               // 指定设备标识登录，常用于“同端互斥登录”
-StpUtil.logoutByLoginId(10001, "PC");     // 指定设备标识进行强制注销 (不同端不受影响)
+StpUtil.kickout(10001, "PC");             // 指定账号指定设备标识踢下线 (不同端不受影响)
 StpUtil.openSafe(120);                    // 在当前会话开启二级认证，有效期为120秒 
 StpUtil.checkSafe();                      // 校验当前会话是否处于二级认证有效期内，校验失败会抛出异常 
 StpUtil.switchTo(10044);                  // 将当前会话身份临时切换为其它账号 
@@ -143,6 +143,8 @@ StpUtil.switchTo(10044);                  // 将当前会话身份临时切换�
 
 - **[ easy-admin ]**：[一个基于SpringBoot2 + Sa-Token + Mybatis-Plus + Snakerflow + Layui 的后台管理系统，灵活多变可前后端分离，也可单体，内置代码生成器、权限管理、工作流引擎等](https://gitee.com/lakernote/easy-admin)
 
+- **[ RuoYi-Vue-Plus ]**：[基于 RuoYi-Vue 集成 SaToken + Lombok + Mybatis-Plus + Undertow + knife4j + Hutool + Feign 重写所有原生业务 定期与 RuoYi-Vue 同步](https://gitee.com/JavaLionLi/RuoYi-Vue-Plus/tree/satoken/)
+
 如果您的项目使用了Sa-Token，欢迎提交pr
 
 ## 友情链接
@@ -155,16 +157,19 @@ StpUtil.switchTo(10044);                  // 将当前会话身份临时切换�
 - **[ TLog ]**：[ 一个轻量级的分布式日志标记追踪神器](https://gitee.com/dromara/TLog)
 
 
+## 贡献者名单
+感谢每一个为 Sa-Token 贡献代码的小伙伴
+
+[![Giteye chart](https://chart.giteye.net/gitee/dromara/sa-token/CGZ7GT8E.png)](https://giteye.net/chart/CGZ7GT8E)
 
 ## 交流群
-QQ交流群：1002350610 [点击加入](https://jq.qq.com/?_wv=1027&k=45H977HM)
+QQ交流群：1群：1002350610 (已满) 、
+2群：614714762 [点击加入](https://jq.qq.com/?_wv=1027&k=b759RZrL)
 
 微信交流群：
 
-![微信群](https://dev33-test.oss-cn-beijing.aliyuncs.com/sa-token/doc/km/sa-token-hm1.jpg ':size=230')
+![微信群](https://dev33-test.oss-cn-beijing.aliyuncs.com/sa-token/i-wx-qr.png ':size=230')
 
-<!-- ![微信群](https://dev33-test.oss-cn-beijing.aliyuncs.com/sa-token/i-wx-qr.png ':size=230')
-
-（扫码添加微信，备注：sa-token，邀您加入群聊） -->
+（扫码添加微信，备注：sa-token，邀您加入群聊）
 
 <br>

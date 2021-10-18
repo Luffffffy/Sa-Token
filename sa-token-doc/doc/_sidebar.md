@@ -29,11 +29,12 @@
 	- [会话治理](/up/search-session) 
 	- [全局侦听器](/up/global-listener) 
 	- [全局过滤器](/up/global-filter) 
-	- [多账号验证](/up/many-account) 
+	- [多账号认证](/up/many-account) 
 	<!-- - [微服务](/senior/dcs) -->
 
 - **单点登录**
 	- [单点登录简述](/sso/readme)
+	- [搭建统一认证中心：SSO-Server](/sso/sso-server)
 	- [SSO模式一 共享Cookie同步会话](/sso/sso-type1)
 	- [SSO模式二 URL重定向传播会话](/sso/sso-type2)
 	- [SSO模式三 Http请求获取会话](/sso/sso-type3)
@@ -62,6 +63,7 @@
 	- [Quick-Login快速登录插件](/plugin/quick-login)
 	- [Alone独立Redis插件](/plugin/alone-redis)
 	- [持久层扩展](/plugin/dao-extend)
+	- [和 Thymeleaf 集成](/plugin/thymeleaf-extend)
 
 - **其它**
 	- [更新日志](/more/update-log) 
@@ -79,6 +81,8 @@
 	- [解决反向代理 uri 丢失的问题](/fun/curr-domain)
 	- [参考：把权限放在缓存里](/fun/jur-cache)
 	- [解决跨域问题](/fun/cors-filter)
+	- [技术选型：SSO 与 OAuth2 对比](/fun/sso-vs-oauth2)
+	- [自定义 SaTokenContext 指南](/fun/sa-token-context)
 	- [框架源码所有技术栈](/fun/tech-stack)
 	- [为Sa-Token贡献代码](/fun/git-pr)
 	- [Sa-Token框架掌握度--在线考试](/fun/sa-token-test)

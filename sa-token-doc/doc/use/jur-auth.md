@@ -75,16 +75,16 @@ public class StpInterfaceImpl implements StpInterface {
 然后就可以用以下api来鉴权了
 
 ``` java
-// 当前账号是否含有指定权限, 返回true或false 
+// 判断：当前账号是否含有指定权限, 返回true或false
 StpUtil.hasPermission("user-update");		
 
-// 当前账号是否含有指定权限, 如果验证未通过，则抛出异常: NotPermissionException 
+// 校验：当前账号是否含有指定权限, 如果验证未通过，则抛出异常: NotPermissionException 
 StpUtil.checkPermission("user-update");		
 
-// 当前账号是否含有指定权限 [指定多个，必须全部验证通过] 
+// 校验：当前账号是否含有指定权限 [指定多个，必须全部验证通过]
 StpUtil.checkPermissionAnd("user-update", "user-delete");		
 
-// 当前账号是否含有指定权限 [指定多个，只要其一验证通过即可] 
+// 校验：当前账号是否含有指定权限 [指定多个，只要其一验证通过即可]
 StpUtil.checkPermissionOr("user-update", "user-delete");		
 ```
 
@@ -95,16 +95,16 @@ StpUtil.checkPermissionOr("user-update", "user-delete");
 在Sa-Token中，角色和权限可以独立验证
 
 ``` java
-// 当前账号是否含有指定角色标识, 返回true或false 
+// 判断：当前账号是否拥有指定角色, 返回true或false
 StpUtil.hasRole("super-admin");		
 
-// 当前账号是否含有指定角色标识, 如果验证未通过，则抛出异常: NotRoleException 
+// 校验：当前账号是否含有指定角色标识, 如果验证未通过，则抛出异常: NotRoleException
 StpUtil.checkRole("super-admin");		
 
-// 当前账号是否含有指定角色标识 [指定多个，必须全部验证通过] 
+// 校验：当前账号是否含有指定角色标识 [指定多个，必须全部验证通过]
 StpUtil.checkRoleAnd("super-admin", "shop-admin");		
 
-// 当前账号是否含有指定角色标识 [指定多个，只要其一验证通过即可] 
+// 校验：当前账号是否含有指定角色标识 [指定多个，只要其一验证通过即可] 
 StpUtil.checkRoleOr("super-admin", "shop-admin");		
 ```
 
@@ -144,6 +144,8 @@ StpUtil.hasPermission("index.html");      // false
 权限精确到按钮级的意思就是指：**权限范围可以控制到页面上的每一个按钮是否显示**
 
 思路：如此精确的范围控制只依赖后端已经难以完成，此时需要前端进行一定的逻辑判断
+
+如果是前后端一体项目，可以参考：[Thymeleaf 标签方言](/plugin/thymeleaf-extend)，如果是前后端分离项目，则：
 
 1. 在登录时，把当前账号拥有的所有权限码一次性返回给前端
 2. 前端将权限码集合保存在`localStorage`或其它全局状态管理对象中

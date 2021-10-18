@@ -404,4 +404,51 @@ public class SaFoxUtil {
 		return str;
 	}
 	
+    /**
+     * String 转 Array，按照逗号切割 
+     * @param str 字符串 
+     * @return 数组 
+     */
+    public static String[] convertStringToArray(String str) {
+    	List<String> list = convertStringToList(str);
+    	return list.toArray(new String[list.size()]);
+    }
+
+    /**
+     * Array 转 String，按照逗号切割 
+     * @param arr 数组 
+     * @return 字符串 
+     */
+    public static String convertArrayToString(String[] arr) {
+    	if(arr == null || arr.length == 0) {
+    		return "";
+    	}
+    	return String.join(",", arr);
+    }
+    
+    /**
+     * 返回一个空集合 
+     * @param <T> 集合类型 
+     * @return 空集合 
+     */
+    public static <T>List<T> emptyList() {
+    	return new ArrayList<>();
+    }
+
+    /**
+     * String数组转集合 
+     * @param strs String数组 
+     * @return 集合 
+     */
+    public static List<String> toList(String... strs) {
+    	List<String> list = new ArrayList<>();
+    	for (String str : strs) {
+    		list.add(str);
+		}
+    	return list;
+    }
+    
+    
+    
+    
 }

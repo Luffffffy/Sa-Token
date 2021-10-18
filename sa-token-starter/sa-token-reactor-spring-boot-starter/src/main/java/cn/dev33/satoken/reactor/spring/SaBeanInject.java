@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.PathMatcher;
 
 import cn.dev33.satoken.SaManager;
-import cn.dev33.satoken.action.SaTokenAction;
 import cn.dev33.satoken.basic.SaBasicTemplate;
 import cn.dev33.satoken.basic.SaBasicUtil;
 import cn.dev33.satoken.config.SaTokenConfig;
@@ -17,6 +16,8 @@ import cn.dev33.satoken.listener.SaTokenListener;
 import cn.dev33.satoken.sso.SaSsoTemplate;
 import cn.dev33.satoken.sso.SaSsoUtil;
 import cn.dev33.satoken.stp.StpInterface;
+import cn.dev33.satoken.stp.StpLogic;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.temp.SaTempInterface;
 
 /**
@@ -63,7 +64,7 @@ public class SaBeanInject {
 	 * @param saTokenAction SaTokenAction对象 
 	 */
 	@Autowired(required = false)
-	public void setSaTokenAction(SaTokenAction saTokenAction) {
+	public void setSaTokenAction(@SuppressWarnings("deprecation") cn.dev33.satoken.action.SaTokenAction saTokenAction) {
 		SaManager.setSaTokenAction(saTokenAction);
 	}
 
@@ -126,6 +127,15 @@ public class SaBeanInject {
 	public void setSaSsoTemplate(SaSsoTemplate saSsoTemplate) {
 		SaSsoUtil.saSsoTemplate = saSsoTemplate;
 	}
+
+	/**
+	 * 注入自定义的 StpLogic 
+	 * @param stpLogic / 
+	 */
+	@Autowired(required = false)
+	public void setStpLogic(StpLogic stpLogic) {
+		StpUtil.setStpLogic(stpLogic);
+	}
 	
 	/**
 	 * 利用自动注入特性，获取Spring框架内部使用的路由匹配器
@@ -137,6 +147,5 @@ public class SaBeanInject {
 	public void setPathMatcher(PathMatcher pathMatcher) {
 		SaPathMatcherHolder.setPathMatcher(pathMatcher);
 	}
-
 
 }

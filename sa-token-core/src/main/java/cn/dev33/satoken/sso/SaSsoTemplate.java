@@ -11,6 +11,7 @@ import cn.dev33.satoken.exception.SaTokenException;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.sso.SaSsoConsts.ParamName;
 import cn.dev33.satoken.stp.StpLogic;
+import cn.dev33.satoken.strategy.SaStrategy;
 import cn.dev33.satoken.util.SaFoxUtil;
 
 /**
@@ -213,7 +214,7 @@ public class SaSsoTemplate {
 		
 		// 3、是否在[允许地址列表]之中 
 		List<String> authUrlList = Arrays.asList(getAllowUrl().replaceAll(" ", "").split(",")); 
-		if(SaManager.getSaTokenAction().hasElement(authUrlList, url) == false) {
+		if(SaStrategy.me.hasElement.apply(authUrlList, url) == false) {
 			throw new SaTokenException("非法redirect：" + url);
 		}
 		
@@ -327,14 +328,17 @@ public class SaSsoTemplate {
 	 * @param fun 调用方法 
 	 */
 	public void forEachSloUrl(Object loginId, CallSloUrlFunction fun) {
+		SaSession session = stpLogic.getSessionByLoginId(loginId, false);
+		if(session == null) {
+			return;
+		}
+
 		String secretkey = SaManager.getConfig().getSso().getSecretkey();
-		Set<String> urlSet = stpLogic.getSessionByLoginId(loginId).get(SaSsoConsts.SLO_CALLBACK_SET_KEY,
-				() -> new HashSet<String>());
-		
+		Set<String> urlSet = session.get(SaSsoConsts.SLO_CALLBACK_SET_KEY, () -> new HashSet<String>());
 		for (String url : urlSet) {
 			// 拼接：login参数、秘钥参数
 			url = SaFoxUtil.joinParam(url, ParamName.loginId, loginId);
-			url = SaFoxUtil.joinParam(url, ParamName.secretkey, secretkey);
+			url = SaFoxUtil.joinParam(url, ParamName.secretkey, secretkey); 
 			// 调用 
 			fun.run(url);
 		}
@@ -408,7 +412,7 @@ public class SaSsoTemplate {
 	 * @author kong
 	 */
 	@FunctionalInterface
-	static interface CallSloUrlFunction{
+	public static interface CallSloUrlFunction{
 		/**
 		 * 调用function 
 		 * @param url 注销回调URL

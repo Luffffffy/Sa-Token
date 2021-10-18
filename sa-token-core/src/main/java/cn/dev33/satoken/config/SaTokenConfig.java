@@ -53,9 +53,6 @@ public class SaTokenConfig implements Serializable {
 	/** 是否打开自动续签 (如果此值为true, 框架会在每次直接或间接调用getLoginId()时进行一次过期检查与续签操作)  */
 	private Boolean autoRenew = true;
 
-	/** 写入Cookie时显式指定的作用域, 常用于单点登录二级域名共享Cookie的场景 */
-	private String cookieDomain;
-	
 	/** token前缀, 格式样例(satoken: Bearer xxxx-xxxx-xxxx-xxxx) */
 	private String tokenPrefix;
 
@@ -84,6 +81,11 @@ public class SaTokenConfig implements Serializable {
 	private String currDomain;
 
 
+	/**
+	 * Cookie配置对象 
+	 */
+	public SaCookieConfig cookie = new SaCookieConfig();
+	
 	/**
 	 * SSO单点登录配置对象 
 	 */
@@ -287,22 +289,6 @@ public class SaTokenConfig implements Serializable {
 	}
 
 	/**
-	 * @return 写入Cookie时显式指定的作用域, 常用于单点登录二级域名共享Cookie的场景
-	 */
-	public String getCookieDomain() {
-		return cookieDomain;
-	}
-
-	/**
-	 * @param cookieDomain 写入Cookie时显式指定的作用域, 常用于单点登录二级域名共享Cookie的场景
-	 * @return 对象自身
-	 */
-	public SaTokenConfig setCookieDomain(String cookieDomain) {
-		this.cookieDomain = cookieDomain;
-		return this;
-	}
-
-	/**
 	 * @return token前缀, 格式样例(satoken: Bearer xxxx-xxxx-xxxx-xxxx)
 	 */
 	public String getTokenPrefix() {
@@ -423,23 +409,57 @@ public class SaTokenConfig implements Serializable {
 	
 	/**
 	 * @param sso SSO单点登录配置对象 
+	 * @return 对象自身 
 	 */
-	public void setSso(SaSsoConfig sso) {
+	public SaTokenConfig setSso(SaSsoConfig sso) {
 		this.sso = sso;
+		return this;
 	}
 	
+	/**
+	 * @return Cookie 全局配置对象
+	 */
+	public SaCookieConfig getCookie() {
+		return cookie;
+	}
+
+	/**
+	 * @param cookie Cookie 全局配置对象
+	 * @return 对象自身 
+	 */
+	public SaTokenConfig setCookie(SaCookieConfig cookie) {
+		this.cookie = cookie;
+		return this;
+	}
 	
 	@Override
 	public String toString() {
-		return "SaTokenConfig [tokenName=" + tokenName + ", timeout=" + timeout + ", activityTimeout=" + activityTimeout
-				+ ", isConcurrent=" + isConcurrent + ", isShare=" + isShare + ", isReadBody=" + isReadBody
-				+ ", isReadHead=" + isReadHead + ", isReadCookie=" + isReadCookie + ", tokenStyle=" + tokenStyle
-				+ ", dataRefreshPeriod=" + dataRefreshPeriod + ", tokenSessionCheckLogin=" + tokenSessionCheckLogin
-				+ ", autoRenew=" + autoRenew + ", cookieDomain=" + cookieDomain + ", tokenPrefix=" + tokenPrefix
-				+ ", isPrint=" + isPrint + ", isLog=" + isLog + ", jwtSecretKey=" + jwtSecretKey + ", idTokenTimeout="
-				+ idTokenTimeout + ", basic=" + basic + ", currDomain=" + currDomain + ", sso=" + sso + "]";
+		return "SaTokenConfig ["
+				+ "tokenName=" + tokenName 
+				+ ", timeout=" + timeout 
+				+ ", activityTimeout=" + activityTimeout
+				+ ", isConcurrent=" + isConcurrent 
+				+ ", isShare=" + isShare 
+				+ ", isReadBody=" + isReadBody
+				+ ", isReadHead=" + isReadHead 
+				+ ", isReadCookie=" + isReadCookie
+				+ ", tokenStyle=" + tokenStyle
+				+ ", dataRefreshPeriod=" + dataRefreshPeriod 
+				+ ", tokenSessionCheckLogin=" + tokenSessionCheckLogin
+				+ ", autoRenew=" + autoRenew 
+				+ ", tokenPrefix=" + tokenPrefix
+				+ ", isPrint=" + isPrint 
+				+ ", isLog=" + isLog 
+				+ ", jwtSecretKey=" + jwtSecretKey 
+				+ ", idTokenTimeout=" + idTokenTimeout 
+				+ ", basic=" + basic 
+				+ ", currDomain=" + currDomain 
+				+ ", sso=" + sso 
+				+ ", cookie=" + cookie 
+				+ "]";
 	}
 
+	
 	/**
 	 * <h1> 本函数设计已过时，未来版本可能移除此函数，请及时更换为 setIsConcurrent() ，使用方式保持不变 </h1>
 	 * @param allowConcurrentLogin see note
@@ -456,8 +476,29 @@ public class SaTokenConfig implements Serializable {
 	 * @param isV see note
 	 * @return see note
 	 */
+	@Deprecated
 	public SaTokenConfig setIsV(Boolean isV) {
 		this.isPrint = isV;
+		return this;
+	}
+
+	/**
+	 * <h1> 本函数设计已过时，未来版本可能移除此函数，请及时更换为 getCookie().getDomain() ，使用方式保持不变 </h1>
+	 * @return 写入Cookie时显式指定的作用域, 常用于单点登录二级域名共享Cookie的场景
+	 */
+	@Deprecated
+	public String getCookieDomain() {
+		return getCookie().getDomain();
+	}
+
+	/**
+	 * <h1> 本函数设计已过时，未来版本可能移除此函数，请及时更换为 getCookie().setDomain() ，使用方式保持不变 </h1>
+	 * @param cookieDomain 写入Cookie时显式指定的作用域, 常用于单点登录二级域名共享Cookie的场景
+	 * @return 对象自身
+	 */
+	@Deprecated
+	public SaTokenConfig setCookieDomain(String cookieDomain) {
+		this.getCookie().setDomain(cookieDomain);
 		return this;
 	}
 

@@ -24,7 +24,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         return new SaServletFilter()
         		.addInclude("/**")
         		.addExclude("/sso/*", "/favicon.ico")
-        		.setAuth(r -> {
+        		.setAuth(obj -> {
         			if(StpUtil.isLogin() == false) {
         				String back = SaFoxUtil.joinParam(SaHolder.getRequest().getUrl(), SpringMVCUtil.getRequest().getQueryString());
         				SaHolder.getResponse().redirect("/sso/login?back=" + SaFoxUtil.encodeUrl(back));
@@ -50,7 +50,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         return new SaServletFilter()
         		.addInclude("/**")
         		.addExclude("/sso/*", "/favicon.ico")
-        		.setAuth(r -> {
+        		.setAuth(obj -> {
         			if(StpUtil.isLogin() == false) {
         				// 与前端约定好，code=401时代表会话未登录 
         				SaRouter.back(SaResult.ok().setCode(401));
@@ -80,15 +80,14 @@ if(res.code == 401) {
 #### 方式二：在配置中配置登录视图地址 
 
 ``` java
-cfg.sso
 // 配置：未登录时返回的View 
-.setNotLoginView(() -> {
+cfg.sso.setNotLoginView(() -> {
 	return new ModelAndView("xxx.html");
 })
 ```
 
 
-### 3、如何自定义登录API的接口？
+### 3、如何自定义登录API的接口地址？
 根据需求点选择解决方案：
 
 #### 3.1、如果只是想在 setDoLoginHandle 函数里获取除 name、pwd 以外的参数？

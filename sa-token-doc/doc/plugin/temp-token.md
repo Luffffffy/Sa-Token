@@ -48,6 +48,9 @@ String value = SaTempUtil.parseToken(token, String.class);
 
 // 获取指定 token 的剩余有效期，单位：秒 
 SaTempUtil.getTimeout(token);
+
+// 删除指定 token
+SaTempUtil.deleteToken(token);
 ```
 
 
