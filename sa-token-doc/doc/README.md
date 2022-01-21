@@ -1,11 +1,11 @@
 <p align="center">
 	<img alt="logo" src="https://gitee.com/dromara/sa-token/raw/master/sa-token-doc/doc/logo.png" width="150" height="150">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Sa-Token v1.27.0</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Sa-Token v1.28.0</h1>
 <h5 align="center">一个轻量级 Java 权限认证框架，让鉴权变得简单、优雅！</h5>
-<p align="center">
-	<a href="https://gitee.com/dromara/sa-token/stargazers"><img src="https://gitee.com/dromara/sa-token/badge/star.svg"></a>
-	<a href="https://gitee.com/dromara/sa-token/members"><img src="https://gitee.com/dromara/sa-token/badge/fork.svg"></a>
+<p align="center" class="badge-box">
+	<a href="https://gitee.com/dromara/sa-token/stargazers"><img src="https://gitee.com/dromara/sa-token/badge/star.svg?theme=gvp"></a>
+	<a href="https://gitee.com/dromara/sa-token/members"><img src="https://gitee.com/dromara/sa-token/badge/fork.svg?theme=gvp"></a>
 	<a href="https://github.com/dromara/sa-token/stargazers"><img src="https://img.shields.io/github/stars/dromara/sa-token?style=flat-square&logo=GitHub"></a>
 	<a href="https://github.com/dromara/sa-token/network/members"><img src="https://img.shields.io/github/forks/dromara/sa-token?style=flat-square&logo=GitHub"></a>
 	<a href="https://github.com/dromara/sa-token/watchers"><img src="https://img.shields.io/github/watchers/dromara/sa-token?style=flat-square&logo=GitHub"></a>
@@ -64,21 +64,21 @@ StpUtil.kickout(10001);
 
 在 Sa-Token 中，绝大多数功能都可以 **一行代码** 完成：
 ``` java
-StpUtil.login(10001);                     // 标记当前会话登录的账号id
-StpUtil.getLoginId();                     // 获取当前会话登录的账号id
-StpUtil.isLogin();                        // 获取当前会话是否已经登录, 返回true或false
-StpUtil.logout();                         // 当前会话注销登录
-StpUtil.kickout(10001);                   // 将账号为10001的会话踢下线
-StpUtil.hasRole("super-admin");           // 查询当前账号是否含有指定角色标识, 返回true或false
-StpUtil.hasPermission("user:add");        // 查询当前账号是否含有指定权限, 返回true或false
-StpUtil.getSession();                     // 获取当前账号id的Session
-StpUtil.getSessionByLoginId(10001);       // 获取账号id为10001的Session
+StpUtil.login(10001);    // 标记当前会话登录的账号id
+StpUtil.getLoginId();    // 获取当前会话登录的账号id
+StpUtil.isLogin();    // 获取当前会话是否已经登录, 返回true或false
+StpUtil.logout();    // 当前会话注销登录
+StpUtil.kickout(10001);    // 将账号为10001的会话踢下线
+StpUtil.hasRole("super-admin");    // 查询当前账号是否含有指定角色标识, 返回true或false
+StpUtil.hasPermission("user:add");    // 查询当前账号是否含有指定权限, 返回true或false
+StpUtil.getSession();    // 获取当前账号id的Session
+StpUtil.getSessionByLoginId(10001);    // 获取账号id为10001的Session
 StpUtil.getTokenValueByLoginId(10001);    // 获取账号id为10001的token令牌值
-StpUtil.login(10001, "PC");               // 指定设备标识登录，常用于“同端互斥登录”
-StpUtil.kickout(10001, "PC");             // 指定账号指定设备标识踢下线 (不同端不受影响)
-StpUtil.openSafe(120);                    // 在当前会话开启二级认证，有效期为120秒 
-StpUtil.checkSafe();                      // 校验当前会话是否处于二级认证有效期内，校验失败会抛出异常 
-StpUtil.switchTo(10044);                  // 将当前会话身份临时切换为其它账号 
+StpUtil.login(10001, "PC");    // 指定设备标识登录，常用于“同端互斥登录”
+StpUtil.kickout(10001, "PC");    // 指定账号指定设备标识踢下线 (不同端不受影响)
+StpUtil.openSafe(120);    // 在当前会话开启二级认证，有效期为120秒 
+StpUtil.checkSafe();    // 校验当前会话是否处于二级认证有效期内，校验失败会抛出异常 
+StpUtil.switchTo(10044);    // 将当前会话身份临时切换为其它账号 
 ```
 
 即使不运行测试，相信您也能意会到绝大多数 API 的用法。
@@ -119,7 +119,12 @@ StpUtil.switchTo(10044);                  // 将当前会话身份临时切换�
 
 
 ## 开源仓库 Star 趋势
+
+<p class="un-dec-a-pre"></p>
+
 [![giteye-chart](https://chart.giteye.net/gitee/dromara/sa-token/77YQZ6UK.png 'Gitee')](https://giteye.net/chart/77YQZ6UK)
+
+<p class="un-dec-a-pre"></p>
 
 [![github-chart](https://starchart.cc/dromara/sa-token.svg 'GitHub')](https://starchart.cc/dromara/sa-token)
 
@@ -159,6 +164,8 @@ StpUtil.switchTo(10044);                  // 将当前会话身份临时切换�
 
 ## 贡献者名单
 感谢每一个为 Sa-Token 贡献代码的小伙伴
+
+<p class="un-dec-a-pre"></p>
 
 [![Giteye chart](https://chart.giteye.net/gitee/dromara/sa-token/CGZ7GT8E.png)](https://giteye.net/chart/CGZ7GT8E)
 

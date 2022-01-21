@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -14,6 +15,7 @@ import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.session.TokenSign;
+import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
 
 /**
@@ -27,13 +29,13 @@ import cn.dev33.satoken.stp.StpUtil;
 public class ManyLoginTest {
 
 	// 持久化Bean 
-	static SaTokenDao dao;
+	@Autowired(required = false)
+	SaTokenDao dao = SaManager.getSaTokenDao();
 	
 	// 开始 
 	@BeforeClass
     public static void beforeClass() {
     	System.out.println("\n------------ 多端登录测试 star ...");
-    	dao = SaManager.getSaTokenDao();
     }
 	// 结束 
     @AfterClass
@@ -160,5 +162,18 @@ public class ManyLoginTest {
     	Assert.assertNull(StpUtil.getSessionByLoginId(10001, false));
     	Assert.assertNull(dao.getSession("satoken:login:session:" + 10001));
     }
-    
+
+    // 测试：多账号模式，在一个账号体系里登录成功，在另一个账号体系不会校验通过 
+    @Test
+    public void login7() {
+    	SaManager.setConfig(new SaTokenConfig());
+    	
+    	StpUtil.login(10001);
+    	String token1 = StpUtil.getTokenValue();
+    	
+    	StpLogic stp = new StpLogic("user");
+    	
+    	Assert.assertNotNull(StpUtil.getLoginIdByToken(token1));
+    	Assert.assertNull(stp.getLoginIdByToken(token1));
+    }
 }

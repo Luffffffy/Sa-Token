@@ -63,7 +63,7 @@ public class SaTokenConfig implements Serializable {
 	private Boolean isLog = false;
 
 	/**
-	 * jwt秘钥 (只有集成 sa-token-temp-jwt 模块时此参数才会生效) 
+	 * jwt秘钥 (只有集成 jwt 模块时此参数才会生效)   
 	 */
 	private String jwtSecretKey;
 	
@@ -80,6 +80,8 @@ public class SaTokenConfig implements Serializable {
 	/** 配置当前项目的网络访问地址 */
 	private String currDomain;
 
+	/** 是否校验Id-Token（部分rpc插件有效） */
+	private Boolean checkIdToken = false;
 
 	/**
 	 * Cookie配置对象 
@@ -337,14 +339,14 @@ public class SaTokenConfig implements Serializable {
 	}
 
 	/**
-	 * @return jwt秘钥 (只有集成 sa-token-temp-jwt 模块时此参数才会生效)  
+	 * @return jwt秘钥 (只有集成 jwt 模块时此参数才会生效)    
 	 */
 	public String getJwtSecretKey() {
 		return jwtSecretKey;
 	}
 
 	/**
-	 * @param jwtSecretKey jwt秘钥 (只有集成 sa-token-temp-jwt 模块时此参数才会生效)  
+	 * @param jwtSecretKey jwt秘钥 (只有集成 jwt 模块时此参数才会生效)  
 	 * @return 对象自身
 	 */
 	public SaTokenConfig setJwtSecretKey(String jwtSecretKey) {
@@ -397,6 +399,22 @@ public class SaTokenConfig implements Serializable {
 	 */
 	public SaTokenConfig setCurrDomain(String currDomain) {
 		this.currDomain = currDomain;
+		return this;
+	}
+
+	/**
+	 * @return 是否校验Id-Token（部分rpc插件有效）
+	 */
+	public Boolean getCheckIdToken() {
+		return checkIdToken;
+	}
+
+	/**
+	 * @param checkIdToken 是否校验Id-Token（部分rpc插件有效）
+	 * @return 对象自身 
+	 */
+	public SaTokenConfig setCheckIdToken(Boolean checkIdToken) {
+		this.checkIdToken = checkIdToken;
 		return this;
 	}
 	
@@ -454,6 +472,7 @@ public class SaTokenConfig implements Serializable {
 				+ ", idTokenTimeout=" + idTokenTimeout 
 				+ ", basic=" + basic 
 				+ ", currDomain=" + currDomain 
+				+ ", checkIdToken=" + checkIdToken 
 				+ ", sso=" + sso 
 				+ ", cookie=" + cookie 
 				+ "]";

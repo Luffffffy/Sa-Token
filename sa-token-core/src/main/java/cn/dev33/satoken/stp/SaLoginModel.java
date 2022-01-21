@@ -1,5 +1,8 @@
 package cn.dev33.satoken.stp;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.dao.SaTokenDao;
@@ -26,6 +29,11 @@ public class SaLoginModel {
 	 * 指定此次登录token的有效期, 单位:秒 （如未指定，自动取全局配置的timeout值）
 	 */
 	public Long timeout;
+
+	/**
+	 * 扩展信息（只在jwt模式下生效）
+	 */
+	public Map<String, Object> extraData;
 
 	
 	/**
@@ -76,6 +84,47 @@ public class SaLoginModel {
 		return this;
 	}
 
+	/**
+	 * @return 参考 {@link #extraData}
+	 */
+	public Map<String, Object> getExtraData() {
+		return extraData;
+	}
+
+	/**
+	 * @param extraData 参考 {@link #extraData}
+	 * @return 对象自身
+	 */
+	public SaLoginModel setExtraData(Map<String, Object> extraData) {
+		this.extraData = extraData;
+		return this;
+	}
+
+	/**
+	 * 写入扩展数据（只在jwt模式下生效） 
+	 * @param key 键
+	 * @param value 值 
+	 * @return
+	 */
+	public SaLoginModel setExtra(String key, Object value) {
+		if(this.extraData == null) {
+			this.extraData = new LinkedHashMap<>();
+		}
+		this.extraData.put(key, value);
+		return this;
+	}
+
+	/**
+	 * 获取扩展数据（只在jwt模式下生效） 
+	 * @param key 键
+	 * @return 扩展数据的值 
+	 */
+	public Object getExtra(String key) {
+		if(this.extraData == null) {
+			return null;
+		}
+		return this.extraData.get(key);
+	}
 
 	/**
 	 * @return Cookie时长
@@ -93,7 +142,7 @@ public class SaLoginModel {
 	/**
 	 * @return 获取device参数，如果为null，则返回默认值
 	 */
-	public String getDeviceOrDefalut() {
+	public String getDeviceOrDefault() {
 		if(device == null) {
 			return SaTokenConsts.DEFAULT_LOGIN_DEVICE;
 		}
@@ -142,4 +191,13 @@ public class SaLoginModel {
 		return "SaLoginModel [device=" + device + ", isLastingCookie=" + isLastingCookie + ", timeout=" + timeout + "]";
 	}
 
+	
+	/**
+	 * 更换为 getDeviceOrDefault() 
+	 * @return / 
+	 */
+	@Deprecated
+	public String getDeviceOrDefalut() {
+		return getDeviceOrDefault();
+	}
 }
