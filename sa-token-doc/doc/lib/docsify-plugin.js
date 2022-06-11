@@ -27,7 +27,7 @@ var myDocsifyPlugin = function(hook, vm) {
 			'<footer>',
 			'<span>发现错误？ 您可以在 <a href="' + url + '" target="_blank">Gitee</a> 或 <a href="' + url2 +
 			'" target="_blank">GitHub</a> 帮助我们完善此页文档！</span>',
-			'或 <a href="https://jq.qq.com/?_wv=1027&k=b759RZrL" target="_blank">加入QQ群</a> 交流反馈',
+			'或 <a href="https://jq.qq.com/?_wv=1027&k=ceibbMFr" target="_blank">加入QQ群</a> 交流反馈',
 			'</footer>'
 		].join('');
 		return html + footer;
@@ -81,6 +81,20 @@ var myDocsifyPlugin = function(hook, vm) {
 			// $('.search input').val('');
 			$('.results-panel').removeClass('show');
 		});
+		
+		// 点击按钮，加载图片
+		$(document).on('click', '.show-img', function(){
+			var src = $(this).attr('img-src');
+			var img = '<img class="show-to-img" src="' + src + '" />';
+			$(this).after(img);
+			$(this).remove();
+		})
+		
+		// 点击按钮，加载图片
+		$(document).on('click', '.show-to-img', function(){
+			open(this.src);
+		})
+		
 	});
 	
 }

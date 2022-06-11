@@ -1,6 +1,7 @@
 package cn.dev33.satoken.session;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 import cn.dev33.satoken.SaManager;
+import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.fun.SaRetFunction;
 import cn.dev33.satoken.util.SaFoxUtil;
 
@@ -109,12 +111,37 @@ public class SaSession implements Serializable {
 	private final List<TokenSign> tokenSignList = new Vector<>();
 
 	/**
-	 * 返回token签名列表的拷贝副本
+	 * 此Session绑定的token签名列表
 	 *
 	 * @return token签名列表
 	 */
 	public List<TokenSign> getTokenSignList() {
-		return new Vector<>(tokenSignList);
+		return tokenSignList;
+	}
+
+	/**
+	 * 返回token签名列表的拷贝副本
+	 *
+	 * @return token签名列表
+	 */
+	public List<TokenSign> tokenSignListCopy() {
+		return new ArrayList<>(tokenSignList);
+	}
+
+	/**
+	 * 返回token签名列表的拷贝副本，根据 device 筛选 
+	 *
+	 * @param device 设备类型，填 null 代表不限设备类型  
+	 * @return token签名列表
+	 */
+	public List<TokenSign> tokenSignListCopyByDevice(String device) {
+		List<TokenSign> list = new ArrayList<>();
+		for (TokenSign tokenSign : tokenSignListCopy()) {
+			if(device == null || tokenSign.getDevice().equals(device)) {
+				list.add(tokenSign);
+			}
+		}
+		return list;
 	}
 
 	/**
@@ -124,7 +151,7 @@ public class SaSession implements Serializable {
 	 * @return 查找到的tokenSign
 	 */
 	public TokenSign getTokenSign(String tokenValue) {
-		for (TokenSign tokenSign : getTokenSignList()) {
+		for (TokenSign tokenSign : tokenSignListCopy()) {
 			if (tokenSign.getValue().equals(tokenValue)) {
 				return tokenSign;
 			}
@@ -139,7 +166,7 @@ public class SaSession implements Serializable {
 	 */
 	public void addTokenSign(TokenSign tokenSign) {
 		// 如果已经存在于列表中，则无需再次添加
-		for (TokenSign tokenSign2 : getTokenSignList()) {
+		for (TokenSign tokenSign2 : tokenSignListCopy()) {
 			if (tokenSign2.getValue().equals(tokenSign.getValue())) {
 				return;
 			}
@@ -153,7 +180,7 @@ public class SaSession implements Serializable {
 	 * 添加一个token签名
 	 *
 	 * @param tokenValue token值
-	 * @param device 设备标识 
+	 * @param device 设备类型
 	 */
 	public void addTokenSign(String tokenValue, String device) {
 		addTokenSign(new TokenSign(tokenValue, device));
@@ -216,8 +243,10 @@ public class SaSession implements Serializable {
 	 * @param minTimeout 过期时间 (单位: 秒) 
 	 */
 	public void updateMinTimeout(long minTimeout) {
-		if(getTimeout() < minTimeout) {
-			SaManager.getSaTokenDao().updateSessionTimeout(this.id, minTimeout);
+		long min = trans(minTimeout);
+		long curr = trans(getTimeout());
+		if(curr < min) {
+			updateTimeout(minTimeout);
 		}
 	}
 
@@ -226,12 +255,21 @@ public class SaSession implements Serializable {
 	 * @param maxTimeout 过期时间 (单位: 秒) 
 	 */
 	public void updateMaxTimeout(long maxTimeout) {
-		if(getTimeout() > maxTimeout) {
-			SaManager.getSaTokenDao().updateSessionTimeout(this.id, maxTimeout);
+		long max = trans(maxTimeout);
+		long curr = trans(getTimeout());
+		if(curr > max) {
+			updateTimeout(maxTimeout);
 		}
 	}
 	
-	
+	/**
+	 * value为 -1 时返回 Long.MAX_VALUE，否则原样返回 
+	 * @param value /
+	 * @return /
+	 */
+	protected long trans(long value) {
+		return value == SaTokenDao.NEVER_EXPIRE ? Long.MAX_VALUE : value;
+	}
 	
 	// ----------------------- 存取值 (类型转换) 
 

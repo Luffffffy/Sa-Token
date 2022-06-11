@@ -7,7 +7,7 @@ Sa-Token 提供两种Token自动过期策略，分别是`timeout`与`activity-ti
 
 ### timeout
 1. `timeout`代表Token的长久有效期，单位/秒，例如将其配置为 2592000 (30天)，代表在30天后，Token必定过期，无法继续使用
-2. `timeout`无法续签，想要继续使用必须重新登录
+2. `timeout`~~无法续签，想要继续使用必须重新登录~~。v1.29.0+ 版本新增续期方法：`StpUtil.renewTimeout(100)`。
 3. `timeout`的值配置为-1后，代表永久有效，不会过期
 
 
@@ -47,3 +47,48 @@ StpUtil.updateLastActivityToNow();
 **可以同时使用！** 
 两者的认证逻辑彼此独立，互不干扰，可以同时使用。
 
+### StpUtil 类中哪些公开方法支持临时有效期自动续签? 
+> 间接调用过 StpUtil.updateLastActivityToNow() 方法
+
+| 支持自动续签的方法 |
+|---|
+| StpUtil.checkLogin() |
+| StpUtil.getLoginId() |
+| StpUtil.getLoginIdAsInt() |
+| StpUtil.getLoginIdAsString() |
+| StpUtil.getLoginIdAsLong() |
+|---|
+| StpUtil.getSession() |
+| StpUtil.getSession() |
+| StpUtil.getTokenSession() |
+|---|
+| StpUtil.getRoleList() |
+| StpUtil.hasRole() |
+| StpUtil.hasRoleAnd() |
+| StpUtil.hasRoleOr() |
+| StpUtil.checkRole() |
+| StpUtil.checkRoleAnd() |
+| StpUtil.checkRoleOr() |
+|---|
+| StpUtil.getPermissionList() |
+| StpUtil.hasPermission() |
+| StpUtil.hasPermissionAnd() |
+| StpUtil.hasPermissionOr() |
+| StpUtil.checkPermission() |
+| StpUtil.checkPermissionAnd() |
+| StpUtil.checkPermissionOr() |
+|---|
+| StpUtil.openSafe() |
+| StpUtil.isSafe() |
+| StpUtil.checkSafe() |
+| StpUtil.getSafeTime() |
+| StpUtil.closeSafe() |
+
+> 以下注解都间接调用过 getLoginId() 方法
+
+| 支持自动续签的注解 |
+|---|
+| @SaCheckLogin      |
+| @SaCheckRole       |
+| @SaCheckPermission |
+| @SaCheckSafe       |

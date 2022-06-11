@@ -51,7 +51,7 @@ public class SaTokenConfigure {
         		// 异常处理函数：每次认证函数发生异常时执行此函数 
         		.setError(e -> {
 					System.out.println("---------- 进入Sa-Token异常处理 -----------");
-        			return AjaxJson.getError(e.getMessage());
+        			return SaResult.error(e.getMessage());
         		})
 				
         		// 前置函数：在每次认证函数之前执行
@@ -78,6 +78,17 @@ public class SaTokenConfigure {
 - 在`[认证函数]`里，你可以写和拦截器里一致的代码，进行路由匹配鉴权，参考：[路由拦截鉴权](/use/route-check)
 - 由于过滤器中抛出的异常不进入全局异常处理，所以你必须提供`[异常处理函数]`来处理`[认证函数]`里抛出的异常
 - 在`[异常处理函数]`里的返回值，将作为字符串输出到前端，如果需要定制化返回数据，请注意其中的格式转换
+
+改写 `setError` 函数的响应格式示例：
+``` java
+.setError(e -> {
+	// 设置响应头
+	SaHolder.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
+	// 使用封装的 JSON 工具类转换数据格式 
+	return JSONUtil.toJsonStr( SaResult.error(e.getMessage()) );
+})
+```
+JSON 工具类可参考：[Hutool-Json](https://hutool.cn/docs/#/json/JSONUtil)
 
 
 ### 在 WebFlux 中注册过滤器

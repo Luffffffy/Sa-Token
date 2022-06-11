@@ -9,7 +9,8 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<link rel="shortcut icon" type="image/x-icon" href="logo.png">
 		<link rel="stylesheet" href="./lib/index.css">
-		<link rel="stylesheet" href="https://unpkg.zhimg.com/docsify@4.11.3/lib/themes/vue.css">
+		<link rel="stylesheet" href="./lib/vue.css">
+		<!--<link rel="stylesheet" href="https://unpkg.zhimg.com/docsify@4.11.3/lib/themes/vue.css">-->
 		<script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js" async></script>
 	</head>
 	<body>
@@ -19,7 +20,7 @@
 					<div class="logo-box">
 						<img src="logo.png" title="logo" />
 						<h1 class="logo-text">Sa-Token</h1>
-						<sub>v1.28.0</sub>
+						<sub>v1.30.0</sub>
 					</div>
 				</a>
 			</div>
@@ -29,6 +30,8 @@
 				</div>
 				<select class="p-none" onchange="location.href=this.value">
 					<option value="http://sa-token.dev33.cn/doc/index.html">最新版</option>
+					<option value="http://sa-token.dev33.cn/v/v1.29.0/doc/index.html">v1.29.0</option>
+					<option value="http://sa-token.dev33.cn/v/v1.28.0/doc/index.html">v1.28.0</option>
 					<option value="http://sa-token.dev33.cn/v/v1.27.0/doc/index.html">v1.27.0</option>
 					<option value="http://sa-token.dev33.cn/v/v1.26.0/doc/index.html">v1.26.0</option>
 					<option value="http://sa-token.dev33.cn/v/v1.25.0/doc/index.html">v1.25.0</option>
@@ -59,24 +62,26 @@
 					<option value="http://sa-token.dev33.cn/v/v1.1.0/doc/index.html">v1.1.0</option>
 					<option value="http://sa-token.dev33.cn/v/v1.0.0/doc/index.html">v1.0.0</option>
 				</select>
-				<a class="wzi" href="../index.html">🔨️️ 首页</a>
-				<a class="p-none wzi" href="#/more/link">🌱 生态</a>
-				<a class="p-none wzi" href="#/more/sa-token-donate">❤️ 赞助</a>
+				<a class="wzi" href="../index.html">首页</a>
+				<a class="wzi" href="index.html">文档</a>
+				<a class="p-none wzi" href="#/more/link">生态</a>
+				<a class="p-none wzi" href="#/more/sa-token-donate">赞助</a>
+				<a class="p-none wzi" href="#/sso/sso-pro">🔥 SSO商业版</a>
 				<div class="zk-box">
 					<a class="wzi" href="javascript:;">
-						<span>🔖 相关资源 </span>
+						<span>相关资源 </span>
 						<span class="zk-icon"></span>
 					</a>
 					<div class="zk-context">
 						<div>
 							<!-- <a href="#/more/sa-token-donate">❤️ &nbsp;赞助</a> -->
-							<a href="#/more/update-log"><span style="transform: rotateY(180deg); display: inline-block;">🧾</span> &nbsp;更新日志</a>
-							<a href="#/more/common-questions">💥️ &nbsp;常见报错</a>
-							<a href="#/more/tj-gzh">🚩️ &nbsp;推荐公众号</a>
-							<a href="#/fun/sa-token-test">🗞️ &nbsp;在线考试 ++</a>
+							<a href="#/more/update-log">更新日志</a>
+							<a href="#/more/common-questions">常见报错</a>
+							<a href="#/more/tj-gzh">推荐公众号</a>
+							<a href="#/fun/sa-token-test">在线考试 ++</a>
 							<div class="zk-fengexian"></div>
-							<a href="http://sa-app.dev33.cn/wall.html?name=sa-token" target="_blank">🧱 &nbsp;需求墙</a>
-							<a href="https://wj.qq.com/s2/8475114/2f6a/" target="_blank">📝 &nbsp;问卷调查</a>
+							<a href="http://sa-app.dev33.cn/wall.html?name=sa-token" target="_blank">需求墙</a>
+							<a href="https://wj.qq.com/s2/8475114/2f6a/" target="_blank">问卷调查</a>
 						</div>
 					</div>
 				</div>
@@ -109,7 +114,7 @@
 		<!--  -->
 		<script src="./lib/docsify-plugin.js"></script>
 		<script>
-			var saTokenTopVersion = '1.28.0';	// Sa-Token最新版本 
+			var saTokenTopVersion = '1.30.0';	// Sa-Token最新版本 
 			var name = '<img style="width: 60px; height: 60px; vertical-align: middle;" src="logo.png" alt="logo" /> ';
 			name += '<b style="font-size: 28px; vertical-align: middle;">Sa-Token</b> <sub>v' + saTokenTopVersion + '</sub>';
 			window.$docsify = {
@@ -147,21 +152,28 @@
 			}
 		</script>
 		<script src="https://unpkg.zhimg.com/docsify@4.9.4/lib/docsify.min.js"></script>
-		<script src="https://unpkg.zhimg.com/docsify-copy-code@2.1.0/dist/docsify-copy-code.min.js"></script>
-		<script src="https://unpkg.zhimg.com/prismjs@1.20.0/components/prism-java.min.js"></script>
+		<script src="lib/docsify-copy-code.min.js"></script>
+		<script src="lib/prism-java.min.js"></script>
 		<!-- 搜索框 -->
-		<script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+		<script src="lib/search.min.js"></script>
 		<!-- 多 tab 切换 -->
-		<script src="https://unpkg.zhimg.com/docsify-tabs@1.4.4"></script>
+		<script src="lib/docsify-tabs.min.js"></script>
 		<!-- img点击放大 -->
-		<script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-		
+		<script src="lib/zoom-image.min.js"></script>
+
 		<!-- sidebar折叠 -->
 		<!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
 		<script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script> -->
 
 		<!-- jqeury -->
 		<script src="https://unpkg.zhimg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+		
+		<script>
+			if(window.jQuery === undefined || window.Docsify === undefined) {
+				var str = 'CDN 加载失败，请打开备用地址：<a href="index-backup.html" target="_blank">index-backup.html</a>';
+				document.querySelector('#app').innerHTML = str;
+			}
+		</script>
 
 		<!-- 搜索引擎自动提交 -->
 		<script>

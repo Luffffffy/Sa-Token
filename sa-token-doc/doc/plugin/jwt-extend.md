@@ -15,7 +15,7 @@
 	<version>${sa.top.version}</version>
 </dependency>
 ```
-
+> 注意: sa-token-jwt 显式依赖 hutool-all 5.7.14 版本，意味着：你的项目中要么不引入 Hutool，要么引入版本 >= 5.7.14 的 Hutool 版本
 
 ### 2、配置秘钥
 在 `application.yml` 配置文件中配置 jwt 生成秘钥：
@@ -32,38 +32,38 @@ sa-token:
 
 <!------------------------------ tabs:start ------------------------------>
 
-<!-- tab: Style 模式  -->
-Style 模式：Token 风格替换
+<!-- tab: Simple 简单模式  -->
+Simple 模式：Token 风格替换
 ``` java
 @Configuration
 public class SaTokenConfigure {
-    // Sa-Token 整合 jwt (Style模式)
+    // Sa-Token 整合 jwt (Simple 简单模式)
 	@Bean
     public StpLogic getStpLogicJwt() {
-    	return new StpLogicJwtForStyle();
+    	return new StpLogicJwtForSimple();
     }
 }
 ```
 
-<!-- tab: Mix 模式  -->
-Mix 模式：混入部分逻辑
+<!-- tab: Mixin 混入模式  -->
+Mixin 模式：混入部分逻辑
 ``` java
 @Configuration
 public class SaTokenConfigure {
-    // Sa-Token 整合 jwt (Style模式)
+    // Sa-Token 整合 jwt (Mixin 混入模式)
 	@Bean
     public StpLogic getStpLogicJwt() {
-    	return new StpLogicJwtForMix();
+    	return new StpLogicJwtForMixin();
     }
 }
 ```
 
-<!-- tab: Stateless模式  -->
+<!-- tab: Stateless 无状态模式  -->
 Stateless 模式：服务器完全无状态
 ``` java
 @Configuration
 public class SaTokenConfigure {
-    // Sa-Token 整合 jwt (Style模式)
+    // Sa-Token 整合 jwt (Stateless 无状态模式)
 	@Bean
     public StpLogic getStpLogicJwt() {
     	return new StpLogicJwtForStateless();
@@ -111,12 +111,30 @@ public class LoginController {
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiMTAwMDEiLCJybiI6IjZYYzgySzBHVWV3Uk5NTTl1dFdjbnpFZFZHTVNYd3JOIn0.F_7fbHsFsDZmckHlGDaBuwDotZwAjZ0HB14DRujQfOQ
 ```
 
+### 5、扩展参数
+你可以通过以下方式在登录时注入扩展参数：
 
-### 5、不同模式策略对比
+``` java
+// 登录10001账号，并为生成的 Token 追加扩展参数name
+StpUtil.login(10001, SaLoginConfig.setExtra("name", "zhangsan"));
+
+// 连缀写法追加多个
+StpUtil.login(10001, SaLoginConfig
+				.setExtra("name", "zhangsan")
+				.setExtra("age", 18)
+				.setExtra("role", "超级管理员"));
+
+// 获取扩展参数 
+String name = StpUtil.getExtra("name");
+```
+
+
+
+### 6、不同模式策略对比
 
 注入不同模式会让框架具有不同的行为策略，以下是三种模式的差异点（为方便叙述，以下比较以同时引入 jwt 与 Redis 作为前提）：
 
-| 功能点						| Style 模式		| Mix 模式			| Stateless 模式	|
+| 功能点						| Simple 简单模式		| Mixin 混入模式			| Stateless 无状态模式	|
 | :--------					| :--------		| :--------			| :--------			|
 | Token风格					| jwt风格		| jwt风格			| jwt风格			|
 | 登录数据存储				| Redis中		| Token中			| Token中			|
@@ -131,6 +149,7 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiMTAwMDEiLCJybiI6IjZYYzgySzB
 | id反查Token				| 支持			| 支持				| 不支持				|
 | 会话管理					| 支持			| 部分支持			| 不支持				|
 | 注解鉴权					| 支持			| 支持				| 支持				|
+| 路由拦截鉴权				| 支持			| 支持				| 支持				|
 | 账号封禁					| 支持			| 支持				| 不支持				|
 | 身份切换					| 支持			| 支持				| 支持				|
 | 二级认证					| 支持			| 支持				| 支持				|

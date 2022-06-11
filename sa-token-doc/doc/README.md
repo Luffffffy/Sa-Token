@@ -1,7 +1,7 @@
 <p align="center">
-	<img alt="logo" src="https://gitee.com/dromara/sa-token/raw/master/sa-token-doc/doc/logo.png" width="150" height="150">
+	<img alt="logo" src="https://sa-token.dev33.cn/doc/logo.png" width="150" height="150">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Sa-Token v1.28.0</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Sa-Token v1.30.0</h1>
 <h5 align="center">一个轻量级 Java 权限认证框架，让鉴权变得简单、优雅！</h5>
 <p align="center" class="badge-box">
 	<a href="https://gitee.com/dromara/sa-token/stargazers"><img src="https://gitee.com/dromara/sa-token/badge/star.svg?theme=gvp"></a>
@@ -74,8 +74,8 @@ StpUtil.hasPermission("user:add");    // 查询当前账号是否含有指定权
 StpUtil.getSession();    // 获取当前账号id的Session
 StpUtil.getSessionByLoginId(10001);    // 获取账号id为10001的Session
 StpUtil.getTokenValueByLoginId(10001);    // 获取账号id为10001的token令牌值
-StpUtil.login(10001, "PC");    // 指定设备标识登录，常用于“同端互斥登录”
-StpUtil.kickout(10001, "PC");    // 指定账号指定设备标识踢下线 (不同端不受影响)
+StpUtil.login(10001, "PC");    // 指定设备类型登录，常用于“同端互斥登录”
+StpUtil.kickout(10001, "PC");    // 指定账号指定设备类型踢下线 (不同端不受影响)
 StpUtil.openSafe(120);    // 在当前会话开启二级认证，有效期为120秒 
 StpUtil.checkSafe();    // 校验当前会话是否处于二级认证有效期内，校验失败会抛出异常 
 StpUtil.switchTo(10044);    // 将当前会话身份临时切换为其它账号 
@@ -122,10 +122,6 @@ StpUtil.switchTo(10044);    // 将当前会话身份临时切换为其它账号
 
 <p class="un-dec-a-pre"></p>
 
-[![giteye-chart](https://chart.giteye.net/gitee/dromara/sa-token/77YQZ6UK.png 'Gitee')](https://giteye.net/chart/77YQZ6UK)
-
-<p class="un-dec-a-pre"></p>
-
 [![github-chart](https://starchart.cc/dromara/sa-token.svg 'GitHub')](https://starchart.cc/dromara/sa-token)
 
 如果 Sa-Token 帮助到了您，希望您可以为其点上一个 `star`：
@@ -133,45 +129,12 @@ StpUtil.switchTo(10044);    // 将当前会话身份临时切换为其它账号
 [GitHub](https://github.com/dromara/sa-token)
 
 
-
-
 ## 使用Sa-Token的开源项目 
-- **[ sa-plus ]**：[一个基于 SpringBoot 架构的快速开发框架，内置代码生成器](https://gitee.com/click33/sa-plus)
+参考：[Sa-Token 生态](/more/link)
 
-- **[ jthink ]**： [一个基于 SpringBoot + Sa-Token + Thymeleaf 的博客系统](https://gitee.com/wtsoftware/jthink)
-
-- **[ dcy-fast ]**：[ 一个基于 SpringBoot + Sa-Token + Mybatis-Plus 的后台管理系统，前端vue-element-admin，并且内置代码生成器](https://gitee.com/dcy421/dcy-fast)
-
-- **[ helio-starters ]**：[ 基于JDK15 + Spring Boot 2.4 + Sa-Token + Mybatis-Plus的单体Boot版脚手架和微服务Cloud版脚手架，带有配套后台管理前端模板及代码生成器](https://gitee.com/uncarbon97/helio-starters)
-
-- **[ sa-token-plugin ]**：[Sa-Token第三方插件实现，基于Sa-Token-Core，提供一些与官方不同实现机制的的插件集合，作为Sa-Token开源生态的补充](https://gitee.com/bootx/sa-token-plugin)
-
-- **[ easy-admin ]**：[一个基于SpringBoot2 + Sa-Token + Mybatis-Plus + Snakerflow + Layui 的后台管理系统，灵活多变可前后端分离，也可单体，内置代码生成器、权限管理、工作流引擎等](https://gitee.com/lakernote/easy-admin)
-
-- **[ RuoYi-Vue-Plus ]**：[基于 RuoYi-Vue 集成 SaToken + Lombok + Mybatis-Plus + Undertow + knife4j + Hutool + Feign 重写所有原生业务 定期与 RuoYi-Vue 同步](https://gitee.com/JavaLionLi/RuoYi-Vue-Plus/tree/satoken/)
-
-如果您的项目使用了Sa-Token，欢迎提交pr
-
-## 友情链接
-- **[ OkHttps ]**：[ 一个轻量级http通信框架，API设计无比优雅，支持 WebSocket 以及 Stomp 协议](https://gitee.com/ejlchina-zhxu/okhttps)
-
-- **[ 小诺快速开发平台 ]**：[ 基于SpringBoot2 + AntDesignVue全新快速开发平台，同时拥有三个版本](https://xiaonuo.vip/index#pricing)
-
-- **[ Jpom ]**：[ 简而轻的低侵入式在线构建、自动部署、日常运维、项目监控软件](https://gitee.com/dromara/Jpom)
-
-- **[ TLog ]**：[ 一个轻量级的分布式日志标记追踪神器](https://gitee.com/dromara/TLog)
-
-
-## 贡献者名单
-感谢每一个为 Sa-Token 贡献代码的小伙伴
-
-<p class="un-dec-a-pre"></p>
-
-[![Giteye chart](https://chart.giteye.net/gitee/dromara/sa-token/CGZ7GT8E.png)](https://giteye.net/chart/CGZ7GT8E)
 
 ## 交流群
-QQ交流群：1群：1002350610 (已满) 、
-2群：614714762 [点击加入](https://jq.qq.com/?_wv=1027&k=b759RZrL)
+QQ交流群：496757342 [点击加入](https://jq.qq.com/?_wv=1027&k=WNggbsFe)
 
 微信交流群：
 

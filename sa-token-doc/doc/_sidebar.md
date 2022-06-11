@@ -29,12 +29,13 @@
 	- [会话治理](/up/search-session) 
 	- [全局侦听器](/up/global-listener) 
 	- [全局过滤器](/up/global-filter) 
-	- [多账号认证](/up/many-account) 
+	- [多账户认证](/up/many-account) 
 	<!-- - [微服务](/senior/dcs) -->
 
 - **单点登录**
 	- [单点登录简述](/sso/readme)
 	- [搭建统一认证中心：SSO-Server](/sso/sso-server)
+	- [SSO-Server 认证中心开放接口](/sso/sso-apidoc)
 	- [SSO模式一 共享Cookie同步会话](/sso/sso-type1)
 	- [SSO模式二 URL重定向传播会话](/sso/sso-type2)
 	- [SSO模式三 Http请求获取会话](/sso/sso-type3)
@@ -50,6 +51,7 @@
 	- [OAuth2-Server搭建](/oauth2/oauth2-server)
 	- [OAuth2-Server端-API列表](/oauth2/oauth2-api)
 	- [OAuth2-二次开发说明](/oauth2/oauth2-dev)
+	- [OAuth2-与登录会话实现数据互通](/oauth2/oauth2-interworking)
 
 - **微服务**
 	- [分布式Session会话](/micro/dcs-session)
@@ -83,6 +85,7 @@
 	- [Token有效期详解](/fun/token-timeout)
 	- [Session模型详解](/fun/session-model)
 	- [TokenInfo参数详解](/fun/token-info)
+	- [异常细分状态码](/fun/exception-code)
 	- [解决反向代理 uri 丢失的问题](/fun/curr-domain)
 	- [参考：把权限放在缓存里](/fun/jur-cache)
 	- [解决跨域问题](/fun/cors-filter)
