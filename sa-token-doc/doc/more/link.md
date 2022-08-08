@@ -10,14 +10,13 @@
 > 经过 Sa-Token 开发组审核通过后：
 > - 将展示在此页面。
 > - 在 Sa-Token 交流群中宣传推广，为项目带来流量。
+> - 按照 star 量排序择取前六名展示在官网首页。
 
 --- 
 
 
 ### 使用 Sa-Token 的开源项目:
-- [[ iot-kit ]](https://gitee.com/iotkit-open-source/iotkit-parent)：一个轻量级低门槛的物联网平台，包含了多协议设备接入、规则引擎、第三方平台接入、智能家居小程序等模块的项目，基于SpringBoot架构并集成了Sa-Token的OAuth2认证。
-
-- [[ Sa-Plus ]](https://gitee.com/click33/sa-plus)：一个基于 SpringBoot 架构的快速开发框架，内置代码生成器
+1. [[ Sa-Plus ]](https://gitee.com/click33/sa-plus)：一个基于 SpringBoot 架构的快速开发框架，内置代码生成器
 
 - [[ jthink ]](https://gitee.com/wtsoftware/jthink)： 一个基于 SpringBoot + Sa-Token + Thymeleaf 的博客系统
 
@@ -33,7 +32,7 @@
 
 - [[ RuoYi-Cloud-Plus ]](https://gitee.com/JavaLionLi/RuoYi-Cloud-Plus)：重写RuoYi-Cloud所有功能 整合 SpringCloudAlibaba + Sa-Token + Dubbo + Mybatis-Plus + Xxl-Job 全方位升级 定期同步
 
-- [[ SpringBoot_v2 ]](https://gitee.com/bdj/SpringBoot_v2/tree/sa-token/)：SpringBoot_v2项目是努力打造springboot框架的极致细腻的脚手架。
+- [[ SpringBoot_v2 ]](https://gitee.com/bdj/SpringBoot_v2)：SpringBoot_v2项目是努力打造springboot框架的极致细腻的脚手架。
 
 - [[ Sa-Token-Study ]](https://gitee.com/click33/sa-token-study)：以demo示例的方式讲解 Sa-Token 源码涉及到的技术点，连载中……
 
@@ -63,8 +62,24 @@
 
 - [[ SpringMvc+Sa-Token ]](https://gitee.com/SRD_01/spring-mvc-sa-token): Jsp+SpringMVC+SSO+Sa-Token+Redis | Spring MVC 集成 SaToken Demo 项目
 
+- [[ QuickBuild ]](https://gitee.com/CodeLiQing/custom-quick-build-platform): 快速构建 | 基于springboot+sa-token+neety+代码生产器（生成vue页面和增删改查代码）| 以及前端vue3和字节arco.design框架整合 
 
-- [[ 自定义快速搭建平台 ]](https://gitee.com/CodeLiQing/custom-quick-build-platform): MybatisPlus+SpringMVC+SSO+Sa-Token+Redis | 基于springboot+as-token+neety+代码生产器（vm实现）| 以及前端vue的element-ui 和大屏框架DataV  
+- [[ iot-kit ]](https://gitee.com/iotkit-open-source/iotkit-parent)：一个轻量级低门槛的物联网平台，包含了多协议设备接入、规则引擎、第三方平台接入、智能家居小程序等模块的项目，基于SpringBoot架构并集成了Sa-Token的OAuth2认证。
+
+- [[ 拾壹博客 ]](https://gitee.com/quequnlong/shiyi-blog.git)：一款vue+springboot前后端分离的博客系统，博客后台管理系统使用了vue+elmentui开发，后端使用Sa-Token进行权限管理,支持动态菜单权限，动态定时任务，文件支持本地和七牛云上传，使用ElasticSearch作为全文检索服务，支持QQ、微博、码云登录。
+
+- [[ dcy-fast-cloud ]](https://gitee.com/dcy421/dcy-fast-cloud)：一个基于 SpringCloudAlibaba + Sa-Token + dubbo2.7.8 + Seata + knife4j + Mybatis-Plus + MapStruct +  的后台管理系统，前端vue-element-admin，并且内置代码生成器+动态路由权限等功能
+
+- [[ magic-boot ]](https://gitee.com/ssssssss-team/magic-boot)：基于 magic-api + Sa-Token 搭建的快速开发平台，可以实现在浏览器编写Vue代码，既改即生效
+
+- [[ fhs-framework ]](https://gitee.com/fhs-opensource/fhs-framework)：基于Springboot+Springcloud + Mybatis Plus + sa-token+ vue + elementui 的快速开发平台(低代码开发平台)，本框架永远免费，永久全开源
+
+- [[ chaos ]](https://gitee.com/qishanor/chaos)：一个基于 SpringBoot + Sa-Token + Mybatis-Plus的快速开发框架，前端vue-element-avue,内置代码生成器，代码最简洁，最佳学习实践方案。
+
+
+
+
+
 <br>
 
 

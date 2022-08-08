@@ -3,14 +3,14 @@
 - **开始**
 	- [介绍](/)
 	- [引入](/start/download)
-	- [在SpringBoot环境集成](/start/example) 	
-	- [在WebFlux环境集成](/start/webflux-example) 	
+	- [在 SpringBoot 环境集成](/start/example) 	
+	- [在 WebFlux 环境集成](/start/webflux-example) 	
 
 - **基础**
 	- [登录认证](/use/login-auth) 
 	- [权限认证](/use/jur-auth) 
 	- [踢人下线](/use/kick) 
-	- [注解式鉴权](/use/at-check) 
+	- [注解鉴权](/use/at-check) 
 	- [路由拦截鉴权](/use/route-check) 
 	- [Session会话](/use/session) 
 	- [框架配置](/use/config) 
@@ -73,7 +73,9 @@
 - **其它**
 	- [更新日志](/more/update-log) 
 	- [框架生态](/more/link) 
+	- [框架博客](/more/blog) 
 	- [推荐公众号](/more/tj-gzh) 
+	- [加入讨论群](/more/join-group) 
 	- [赞助 Sa-Token](/more/sa-token-donate)
 
 - **附录**
@@ -92,6 +94,7 @@
 	- [技术选型：SSO 与 OAuth2 对比](/fun/sso-vs-oauth2)
 	- [自定义 SaTokenContext 指南](/fun/sa-token-context)
 	- [框架源码所有技术栈](/fun/tech-stack)
+	- [issue 提问模板](/fun/issue-template)
 	- [为Sa-Token贡献代码](/fun/git-pr)
 	- [Sa-Token开源大事记](/fun/timeline)
 	- [Sa-Token框架掌握度--在线考试](/fun/sa-token-test)

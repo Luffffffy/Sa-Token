@@ -62,6 +62,17 @@
 </dependency>
 ```
 
+<!------------- tab:Quarkus 集成  ------------->
+参考：[quarkus-sa-token](https://github.com/quarkiverse/quarkus-sa-token)
+``` xml
+<!-- Sa-Token 整合 Quarkus, 在线文档：http://sa-token.dev33.cn/ -->
+<dependency>
+	<groupId>io.quarkiverse.satoken</groupId>
+	<artifactId>quarkus-satoken-resteasy</artifactId>
+	<version>1.30.0</version>
+</dependency>
+```
+
 <!------------- tab:裸Servlet容器环境   ------------->
 注：如果你的项目没有使用Spring，但是Web框架是基于 ServletAPI 规范的，可以引入此包
 ``` xml
@@ -114,6 +125,11 @@ implementation 'cn.dev33:sa-token-jfinal-plugin:${sa.top.version}'
 <!-- tab:Jboot 集成  -->
 ``` xml
 implementation 'cn.dev33:sa-token-jboot-plugin:${sa.top.version}'
+```
+
+<!-- tab:Quarkus 集成  -->
+``` xml
+implementation 'io.quarkiverse.satoken:quarkus-satoken-resteasy:1.30.0'
 ```
 
 <!-- tab:裸Servlet容器环境  -->
@@ -195,7 +211,7 @@ implementation 'cn.dev33:sa-token-core:${sa.top.version}'
 ## jar包下载
 [点击下载：sa-token-1.6.0.jar](https://oss.dev33.cn/sa-token/sa-token-1.6.0.jar)
 
-(注意：当前仅提供`v1.6.0`版本jar包下载，更多版本请前往maven中央仓库获取，[直达链接](https://search.maven.org/search?q=sa-token))
+注：当前仅提供 `v1.6.0` 版本jar包下载，更多版本请前往 maven 中央仓库获取，[直达链接](https://search.maven.org/search?q=sa-token)
 
 
 

@@ -76,6 +76,16 @@ public class SaFoxUtil {
 	}
 	
 	/**
+	 * 比较两个对象是否相等 
+	 * @param a 第一个对象 
+	 * @param b 第二个对象 
+	 * @return 两个对象是否相等 
+	 */
+	public static boolean equals(Object a, Object b) {
+        return (a == b) || (a != null && a.equals(b));
+    }
+	
+	/**
 	 * 以当前时间戳和随机int数字拼接一个随机字符串
 	 * 
 	 * @return 随机字符串
@@ -158,13 +168,22 @@ public class SaFoxUtil {
 	 * @return 是否可以匹配 
 	 */
 	public static boolean vagueMatch(String patt, String str) {
-		// 如果表达式不带有*号，则只需简单equals即可 (速度提升200倍) 
+		// 两者均为 null 时，直接返回 true 
+		if(patt == null && str == null) {
+			return true;
+		}
+		// 两者其一为 null 时，直接返回 false 
+		if(patt == null || str == null) {
+			return false;
+		}
+		// 如果表达式不带有*号，则只需简单equals即可 (这样可以使速度提升200倍左右) 
 		if(patt.indexOf("*") == -1) {
 			return patt.equals(str);
 		}
+		// 正则匹配 
 		return Pattern.matches(patt.replaceAll("\\*", ".*"), str);
 	}
-
+	
 	/**
 	 * 将指定值转化为指定类型
 	 * @param <T> 泛型
