@@ -1,11 +1,12 @@
 package demo;
 
-import cn.dev33.satoken.router.SaRouter;
-import cn.dev33.satoken.solon.integration.SaTokenPathFilter;
-import cn.dev33.satoken.stp.StpUtil;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
 import org.noear.solon.core.handle.Filter;
+
+import cn.dev33.satoken.router.SaRouter;
+import cn.dev33.satoken.solon.integration.SaTokenPathFilter;
+import cn.dev33.satoken.stp.StpUtil;
 
 /**
  * @author noear 2022/3/30 created
@@ -13,7 +14,7 @@ import org.noear.solon.core.handle.Filter;
 @Configuration
 public class Config {
 
-    @Bean
+	@Bean
     public Filter saTokenFilter() {
         return new SaTokenPathFilter()
                 // 指定 [拦截路由] 与 [放行路由]

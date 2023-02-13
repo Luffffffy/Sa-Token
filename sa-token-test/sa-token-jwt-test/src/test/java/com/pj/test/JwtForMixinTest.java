@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.exception.ApiDisabledException;
-import cn.dev33.satoken.exception.DisableLoginException;
+import cn.dev33.satoken.exception.DisableServiceException;
 import cn.dev33.satoken.jwt.SaJwtUtil;
 import cn.dev33.satoken.jwt.StpLogicJwtForMixin;
 import cn.dev33.satoken.session.SaSession;
@@ -203,19 +203,20 @@ public class JwtForMixinTest {
     // 测试：账号封禁 
     @Test
     public void testDisable() {
-    	Assertions.assertThrows(DisableLoginException.class, () -> {
+    	Assertions.assertThrows(DisableServiceException.class, () -> {
         	// 封号 
         	StpUtil.disable(10007, 200);
         	Assertions.assertTrue(StpUtil.isDisable(10007));
-        	Assertions.assertEquals(dao.get("satoken:login:disable:" + 10007), DisableLoginException.BE_VALUE); 
+        	Assertions.assertEquals(dao.get("satoken:login:disable:login:" + 10007), String.valueOf(SaTokenConsts.DEFAULT_DISABLE_LEVEL)); 
         	
         	// 解封  
         	StpUtil.untieDisable(10007);
         	Assertions.assertFalse(StpUtil.isDisable(10007));
-        	Assertions.assertEquals(dao.get("satoken:login:disable:" + 10007), null); 
+        	Assertions.assertEquals(dao.get("satoken:login:disable:login:" + 10007), null); 
         	
-        	// 封号后登陆 (会抛出 DisableLoginException 异常)
+        	// 封号后校验 (会抛出 DisableLoginException 异常)
         	StpUtil.disable(10007, 200); 
+        	StpUtil.checkDisable(10007);
         	StpUtil.login(10007);  
     	});
     }
@@ -251,7 +252,7 @@ public class JwtForMixinTest {
         	StpUtil.login(10005);
         	
         	// 查询 
-        	List<String> list = StpUtil.searchTokenValue("", 0, 10);
+        	List<String> list = StpUtil.searchTokenValue("", 0, 10, true);
         	Assertions.assertTrue(list.size() >= 5);
     	});
     }

@@ -9,23 +9,30 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 import cn.dev33.satoken.SaManager;
+import cn.dev33.satoken.application.SaSetValueInterface;
 import cn.dev33.satoken.dao.SaTokenDao;
-import cn.dev33.satoken.fun.SaRetFunction;
+import cn.dev33.satoken.listener.SaTokenEventCenter;
 import cn.dev33.satoken.util.SaFoxUtil;
 
 /**
- * Session Model
+ * Session Model，会话作用域的读取值对象 
+ * <p> 在一次会话范围内: 存值、取值
  *
  * @author kong
  *
  */
-public class SaSession implements Serializable {
+public class SaSession implements SaSetValueInterface, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * 在 Session 上存储用户对象时建议使用的key 
+	 */
+	public static final String USER = "USER";
+
 	/**
 	 * 在 Session 上存储角色时建议使用的key 
 	 */
@@ -65,8 +72,8 @@ public class SaSession implements Serializable {
 	public SaSession(String id) {
 		this.id = id;
 		this.createTime = System.currentTimeMillis();
- 		// $$ 通知监听器 
- 		SaManager.getSaTokenListener().doCreateSession(id);
+ 		// $$ 发布事件
+		SaTokenEventCenter.doCreateSession(id);
 	}
 
 	/**
@@ -225,8 +232,8 @@ public class SaSession implements Serializable {
 	/** 注销Session (从持久库删除) */
 	public void logout() {
 		SaManager.getSaTokenDao().deleteSession(this.id);
- 		// $$ 通知监听器 
- 		SaManager.getSaTokenListener().doLogoutSession(id);
+ 		// $$ 发布事件 
+		SaTokenEventCenter.doLogoutSession(id);
 	}
 
 	/** 当Session上的tokenSign数量为零时，注销会话 */
@@ -287,139 +294,25 @@ public class SaSession implements Serializable {
 	
 	// ----------------------- 存取值 (类型转换) 
 
-	// ---- 取值 
+	// ---- 重写接口方法 
+	
 	/**
-	 * 取值
+	 * 取值 
 	 * @param key key 
 	 * @return 值 
 	 */
+	@Override
 	public Object get(String key) {
 		return dataMap.get(key);
 	}
-
-	/**
-	 * 
-	 * 取值 (指定默认值) 
-	 * @param <T> 默认值的类型
-	 * @param key key 
-	 * @param defaultValue 取不到值时返回的默认值 
-	 * @return 值 
-	 */
-	public <T> T get(String key, T defaultValue) {
-		return getValueByDefaultValue(get(key), defaultValue);
-	}
 	
 	/**
-	 * 
-	 * 取值 (如果值为null，则执行fun函数获取值) 
-	 * @param <T> 返回值的类型 
-	 * @param key key 
-	 * @param fun 值为null时执行的函数 
-	 * @return 值 
-	 */
-	@SuppressWarnings("unchecked")
-	public <T> T get(String key, SaRetFunction fun) {
-		Object value = get(key);
-		if(value == null) {
-			value = fun.run();
-			set(key, value);
-		}
-		return (T) value;
-	}
-	
-	/**
-	 * 取值 (转String类型) 
-	 * @param key key 
-	 * @return 值 
-	 */
-	public String getString(String key) {
-		Object value = get(key);
-		if(value == null) {
-			return null;
-		}
-		return String.valueOf(value);
-	}
-
-	/**
-	 * 取值 (转int类型) 
-	 * @param key key 
-	 * @return 值 
-	 */
-	public int getInt(String key) {
-		return getValueByDefaultValue(get(key), 0);
-	}
-
-	/**
-	 * 取值 (转long类型) 
-	 * @param key key 
-	 * @return 值 
-	 */
-	public long getLong(String key) {
-		return getValueByDefaultValue(get(key), 0L);
-	}
-
-	/**
-	 * 取值 (转double类型) 
-	 * @param key key 
-	 * @return 值 
-	 */
-	public double getDouble(String key) {
-		return getValueByDefaultValue(get(key), 0.0);
-	}
-
-	/**
-	 * 取值 (转float类型) 
-	 * @param key key 
-	 * @return 值 
-	 */
-	public float getFloat(String key) {
-		return getValueByDefaultValue(get(key), 0.0f);
-	}
-
-	/**
-	 * 取值 (指定转换类型)
-	 * @param <T> 泛型
-	 * @param key key 
-	 * @param cs 指定转换类型 
-	 * @return 值 
-	 */
-	public <T> T getModel(String key, Class<T> cs) {
-		return SaFoxUtil.getValueByType(get(key), cs);
-	}
-
-	/**
-	 * 取值 (指定转换类型, 并指定值为Null时返回的默认值)
-	 * @param <T> 泛型
-	 * @param key key 
-	 * @param cs 指定转换类型 
-	 * @param defaultValue 值为Null时返回的默认值
-	 * @return 值 
-	 */
-	@SuppressWarnings("unchecked")
-	public <T> T getModel(String key, Class<T> cs, Object defaultValue) {
-		Object value = get(key);
-		if(valueIsNull(value)) {
-			return (T)defaultValue;
-		}
-		return SaFoxUtil.getValueByType(value, cs);
-	}
-
-	/**
-	 * 返回当前Session的所有key 
-	 *
-	 * @return 所有值的key列表
-	 */
-	public Set<String> keys() {
-		return dataMap.keySet();
-	}
-	
-	// ---- 其他
-	/**
-	 * 写值
+	 * 写值 
 	 * @param key   名称
 	 * @param value 值
 	 * @return 对象自身
 	 */
+	@Override
 	public SaSession set(String key, Object value) {
 		dataMap.put(key, value);
 		update();
@@ -432,6 +325,7 @@ public class SaSession implements Serializable {
 	 * @param value 值
 	 * @return 对象自身
 	 */
+	@Override
 	public SaSession setByNull(String key, Object value) {
 		if(has(key) == false) {
 			dataMap.put(key, value);
@@ -441,27 +335,30 @@ public class SaSession implements Serializable {
 	}
 
 	/**
-	 * 是否含有某个key
-	 * @param key has
-	 * @return 是否含有
-	 */
-	public boolean has(String key) {
-		return !valueIsNull(get(key));
-	}
-
-	/**
 	 * 删值
 	 * @param key 要删除的key
 	 * @return 对象自身
 	 */
+	@Override
 	public SaSession delete(String key) {
 		dataMap.remove(key);
 		update();
 		return this;
 	}
 
+	// ---- 其它方法 
+
 	/**
-	 * 清空所有值
+	 * 返回当前Session的所有key 
+	 *
+	 * @return 所有值的key列表
+	 */
+	public Set<String> keys() {
+		return dataMap.keySet();
+	}
+	
+	/**
+	 * 清空所有值 
 	 */
 	public void clear() {
 		dataMap.clear();
@@ -485,146 +382,6 @@ public class SaSession implements Serializable {
 		this.dataMap.clear();
 		this.dataMap.putAll(dataMap);
 		this.update();
-	}
-
-	
-	// --------- 工具方法 
-
-	/**
-	 * 判断一个值是否为null 
-	 * @param value 指定值 
-	 * @return 此value是否为null 
-	 */
-	public boolean valueIsNull(Object value) {
-		return value == null || value.equals("");
-	}
-
-	/**
-	 * 根据默认值来获取值
-	 * @param <T> 泛型
-	 * @param value 值 
-	 * @param defaultValue 默认值
-	 * @return 转换后的值 
-	 */
-	@SuppressWarnings("unchecked")
-	protected <T> T getValueByDefaultValue(Object value, T defaultValue) {
-		
-		// 如果 obj 为 null，则直接返回默认值 
-		if(valueIsNull(value)) {
-			return (T)defaultValue;
-		}
-		
-		// 开始转换
-		Class<T> cs = (Class<T>) defaultValue.getClass();
-		return SaFoxUtil.getValueByType(value, cs);
-	}
-	
-	
-	
-
-	// ----------------------- 旧API 
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.set(key) </h1>
-	 * 写入一个值
-	 *
-	 * @param key   名称
-	 * @param value 值
-	 */
-	@Deprecated
-	public void setAttribute(String key, Object value) {
-		dataMap.put(key, value);
-		update();
-	}
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.get(key) </h1>
-	 * 取出一个值
-	 *
-	 * @param key 名称
-	 * @return 值
-	 */
-	@Deprecated
-	public Object getAttribute(String key) {
-		return dataMap.get(key);
-	}
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.get(key, defaultValue) </h1>
-	 * 取值，并指定取不到值时的默认值
-	 *
-	 * @param key          名称
-	 * @param defaultValue 取不到值的时候返回的默认值
-	 * @return value
-	 */
-	@Deprecated
-	public Object getAttribute(String key, Object defaultValue) {
-		Object value = getAttribute(key);
-		if (value != null) {
-			return value;
-		}
-		return defaultValue;
-	}
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.delete(key) </h1>
-	 * 移除一个值
-	 *
-	 * @param key 要移除的值的名字
-	 */
-	@Deprecated
-	public void removeAttribute(String key) {
-		dataMap.remove(key);
-		update();
-	}
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.clear() </h1>
-	 * 清空所有值
-	 */
-	@Deprecated
-	public void clearAttribute() {
-		dataMap.clear();
-		update();
-	}
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.has(key) </h1>
-	 * 是否含有指定key
-	 *
-	 * @param key 是否含有指定值
-	 * @return 是否含有
-	 */
-	@Deprecated
-	public boolean containsAttribute(String key) {
-		return dataMap.containsKey(key);
-	}
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.keys() </h1>
-	 * 返回当前session会话所有key
-	 *
-	 * @return 所有值的key列表
-	 */
-	@Deprecated
-	public Set<String> attributeKeys() {
-		return dataMap.keySet();
-	}
-
-	/**
-	 * <h1> 此函数设计已过时，未来版本可能移除此类，请及时更换为: session.setByNull()，用法保持不变 </h1>
-	 * 写值(只有在此key原本无值的时候才会写入)
-	 * @param key   名称
-	 * @param value 值
-	 * @return 对象自身
-	 */
-	@Deprecated
-	public SaSession setDefaultValue(String key, Object value) {
-		if(has(key) == false) {
-			dataMap.put(key, value);
-			update();
-		}
-		return this;
 	}
 
 }
